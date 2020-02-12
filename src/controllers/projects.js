@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../dbs/index');
 
 router.get('/', async (req, res) => {
-  const getAllQ = 'SELECT * FROM projects';
+  const getAllQ = 'SELECT * FROM projects order by id desc';
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE id=$1';
+    const project = 'SELECT * FROM projects WHERE id=$1 order by id desc';
     console.log(req.params.id);
     try {
       const { rows } = await db.query(project, [req.params.id]);
@@ -33,16 +33,14 @@ router.get('/:id', async(req, res) =>{
     }
   });
 
-  router.get('/local-supervisors/:id', async(req, res) =>{
+  router.get('/localsupervisors/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE local_id=$1';
     console.log(req.params.id);
     try {
+      console.log('dd')
       const { rows } = await db.query(project, [req.params.id]);
-     console.log(rows[0])
-      if (!rows[0]) {
-        return res.status(404).send({ message: 'project Not found' });
-      }
-          rows
+     //alert(rows[0])        
+     console.log('tt'+rows)     
       return res.status(200).json(rows);
     } catch (error) {
       return res.status(400).send(error);
@@ -77,25 +75,29 @@ return res.status(400).send(error);
 });
 
   router.put('/:id', async (req, res) => {
-    const updateProject = `UPDATE
-    projects 
-   SET status=$1, location=$2, local_id=$3, wardheadphone=$4, gps=$5, state_id=$6 WHERE id=$7 RETURNING *`;
+    console.log('reqqqq '+req.body)
+
+    const updateProject = `UPDATE projects
+     SET status=$1, location=$2, local_id=$3, wardheadphone=$4, gps=$5, state_id=$6,
+ lga=$7, contractor_id=$8, started=$9, finish=$10   WHERE id=$11 RETURNING *`;
   
   // title,state_id, local_id,location,lga,status,wardheadphone,gps,started
-
   const values = [
   req.body.status,
   req.body.location,
   req.body.local_id,
-  req.body.wardphone,
+  req.body.wardheadphone,
   req.body.gps,
   req.body.state_id,
+  req.body.lga,
+  req.body.contractor_id,
+  req.body.started,
+  req.body.finish,
   req.params.id
-  //moment(new Date()),
   ];
   try {
   const { rows } = await db.query(updateProject, values);
-  // console.log(rows);
+  //console.log(rows);
   const data = {
     status: 'success',
     data: {
