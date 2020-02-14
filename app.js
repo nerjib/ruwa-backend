@@ -13,6 +13,10 @@ const Report = require('./src/controllers/reportform')
 const multer = require('multer');
 const cloudinary = require('cloudinary');
 const Analytics = require('./src/controllers/analytics');
+const Reports = require('./src/controllers/reports');
+const Activity = require('./src/controllers/activitiesform')
+
+
 app.use(cors())
 
 http.createServer(app);
@@ -42,7 +46,7 @@ cloudinary.config({
   api_secret: process.env.api_secret,
 });
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/gif') {
+  if (file.mimetype === 'image/gif'||'image/png') {
     cb(null, true);
   } else {
     cb(new Error('image is not gif'), false);
@@ -78,6 +82,7 @@ app.use('/api/v1/projects', Projects);
 app.use('/api/v1/contractors', Contractors);
 app.use('/api/v1/localreports', LocalReports);
 app.use('/api/v1/analytics', Analytics);
+app.use('/api/v1/reports', Reports);
 
 app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
   cloudinary.uploader.upload(req.file.path, function (result) {
@@ -86,6 +91,16 @@ app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
   });
 });
 
+app.post('/api/v1/activityform', upload.single('image'), (req, res) => {
+  cloudinary.uploader.upload(req.file.path, function (result) {
+     console.log(req.file);
+    Activity.createReport(req, res, result.secure_url);
+  });
+});
+
+app.post('/api/v1/activityform1', (req, res) => {
+     Activity.createActivity(req, res);
+  });
 
 
 module.exports = app;

@@ -49,8 +49,8 @@ router.get('/:id', async(req, res) =>{
 
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  projects (title,state_id, local_id,location,lga,status,wardheadphone,gps,started)
-  VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`;
+  projects (title,state_id, local_id,location,lga,status,wardheadphone,gps,started,lot,type)
+  VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`;
 
 const values = [
   req.body.title,
@@ -60,8 +60,10 @@ const values = [
   req.body.lga,
   req.body.status,
   req.body.wardphone,
-  req.body.gps,
-moment(new Date())
+  req.body.gps, 
+moment(new Date()),
+req.body.lot,
+req.body.type
 ];
 try {
 const { rows } = await db.query(createUser, values);

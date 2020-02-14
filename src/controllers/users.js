@@ -48,8 +48,8 @@ router.get('/signin/:email', async (req, res) => {
 //insert users
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  users (last_name,first_name,other_name,phone,email,role)
-  VALUES ($1, $2,$3,$4,$5,$6) RETURNING *`;
+  users (last_name,first_name,other_name,phone,email,role,lga,active)
+  VALUES ($1, $2,$3,$4,$5,$6,$7,$8) RETURNING *`;
 
 const values = [
 req.body.fname,
@@ -57,7 +57,9 @@ req.body.lname,
 req.body.oname ||'',
 req.body.phone,
 req.body.email,
-req.body.role
+req.body.role,
+req.body.lga,
+'active'
 //moment(new Date()),
 ];
 try {
