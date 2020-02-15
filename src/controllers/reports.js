@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../dbs/index');
 
 router.get('/', async (req, res) => {
-  const getAllQ = 'SELECT * FROM reports order by id desc';
+  const getAllQ = 'SELECT * FROM reports order by id asc';
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);

@@ -58,7 +58,7 @@ router.get('/completed', async (req, res) => {
   });
 
 router.get('/reports', async (req, res) => {
-    const getAllQ = 'SELECT count(*) FROM localreports';
+    const getAllQ = 'SELECT count(*) FROM reports';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
