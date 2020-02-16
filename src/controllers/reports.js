@@ -44,6 +44,19 @@ router.get('/:id', async (req, res) => {
     return res.status(400).send(`${error} jsh`);
   }
 });
+router.get('/incomplete/:id', async (req, res) => {
+  const getAllQ = 'SELECT * FROM reports WHERE id= $1';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ, [req.params.id]);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
 
 router.get('/activity/:id', async (req, res) => {
     const getAllQ = 'SELECT * FROM reportactivities WHERE rid= $1';
