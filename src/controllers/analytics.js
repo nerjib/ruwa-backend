@@ -58,10 +58,10 @@ router.get('/completed', async (req, res) => {
   });
 
 router.get('/reports', async (req, res) => {
-    const getAllQ = 'SELECT count(*) FROM reports';
+    const getAllQ = 'SELECT count(*) FROM reports where complete=$1';
     try {
       // const { rows } = qr.query(getAllQ);
-      const { rows } = await db.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['1']);
       return res.status(201).send(rows);
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
