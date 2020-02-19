@@ -91,16 +91,33 @@ app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
   });
 });
 
-app.post('/api/v1/activityform', upload.single('image'), (req, res) => {
-  cloudinary.uploader.upload(req.file.path, function (result) {
-     console.log(req.file);
-    Activity.createReport(req, res, result.secure_url);
-  });
-});
+//app.post('/api/v1/activityform',  (req, res) => {
+//console.log(req)
+// cloudinary.uploader.upload(req.body.image, function (result) {
+  //   console.log(result.secure_url);
+   // Activity.createReport(req, res, result.secure_url);
+  //});
+//});
 
+app.post('/api/v1/activityform', upload.single('image'), (req, res) => {
+  console.log(req.file)
+   cloudinary.uploader.upload(req.file.path, function (result) {
+      console.log(req.file);
+     Activity.createReport(req, res, result.secure_url);
+    });
+  });
+  
 app.post('/api/v1/activityform1', (req, res) => {
      Activity.createActivity(req, res);
   });
+
+  app.post('/api/upload', upload.array('photo', 3), (req, res) => {
+  console.log('file', req.files)
+  console.log('body', req.body)
+  res.status(200).json({
+    message: 'success!',
+  })
+})
 
 
 module.exports = app;

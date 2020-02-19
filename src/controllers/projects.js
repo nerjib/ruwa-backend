@@ -77,11 +77,11 @@ return res.status(400).send(error);
 });
 
   router.put('/:id', async (req, res) => {
-    console.log('reqqqq '+req.body)
+    console.log('reqqqq '+req.body.community)
 
     const updateProject = `UPDATE projects
      SET status=$1, location=$2, local_id=$3, wardheadphone=$4, gps=$5, state_id=$6,
- lga=$7, contractor_id=$8, started=$9, finish=$10   WHERE id=$11 RETURNING *`;
+ lga=$7, contractor_id=$8, started=$9, finish=$10, ward=$11, facility=$12, community=$13, compartment=$14 WHERE id=$15 RETURNING *`;
   
   // title,state_id, local_id,location,lga,status,wardheadphone,gps,started
   const values = [
@@ -95,8 +95,12 @@ return res.status(400).send(error);
   req.body.contractor_id,
   req.body.started,
   req.body.finish,
-  req.params.id
-  ];
+  req.body.ward,
+  req.body.facility,
+  req.body.community,
+  req.body.compartment,
+  req.params.id,
+    ];
   try {
   const { rows } = await db.query(updateProject, values);
   //console.log(rows);
