@@ -35,17 +35,32 @@ router.get('/:id', async(req, res) =>{
 
   router.get('/localsupervisors/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE local_id=$1';
-    console.log(req.params.id);
+   // console.log(req.params.id);
     try {
-      console.log('dd')
+   //   console.log('dd')
       const { rows } = await db.query(project, [req.params.id]);
      //alert(rows[0])        
-     console.log('tt'+rows)     
+  //   console.log('tt'+rows)     
       return res.status(200).json(rows);
     } catch (error) {
       return res.status(400).send(error);
     }
   });
+
+  router.get('/statesupervisors/:id', async(req, res) =>{
+    const project = 'SELECT * FROM projects WHERE state_id=$1';
+   // console.log(req.params.id);
+    try {
+   //   console.log('dd')
+      const { rows } = await db.query(project, [req.params.id]);
+     //alert(rows[0])        
+  //   console.log('tt'+rows)     
+      return res.status(200).json(rows);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  });
+
 
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
@@ -82,7 +97,7 @@ return res.status(400).send(error);
 
     const updateProject = `UPDATE projects
      SET status=$1, location=$2, local_id=$3, wardheadphone=$4, gps=$5, state_id=$6,
- lga=$7, contractor_id=$8, started=$9, finish=$10, ward=$11, facility=$12, community=$13, compartment=$14 WHERE id=$15 RETURNING *`;
+ lga=$7, contractor_id=$8, started=$9, finish=$10, ward=$11, facility=$12, community=$13, compartment=$14, pstatus=$15, lot=$16 WHERE id=$17 RETURNING *`;
   
   // title,state_id, local_id,location,lga,status,wardheadphone,gps,started
   const values = [
@@ -100,7 +115,35 @@ return res.status(400).send(error);
   req.body.facility,
   req.body.community,
   req.body.compartment,
-  req.params.id,
+  req.body.pstatus,
+  req.body.lot,
+  req.params.id
+    ];
+  try {
+  const { rows } = await db.query(updateProject, values);
+  //console.log(rows);
+  const data = {
+    status: 'success',
+    data: {
+      message: 'Project updated successfully​',
+    },
+  };
+  return res.status(201).json(data);
+  } catch (error) {
+  return res.status(400).send(error);
+  }
+  
+  });
+  router.put('/pstatus/:id', async (req, res) => {
+    //console.log('reqqqq '+req.body.community)
+
+    const updateProject = `UPDATE projects
+     SET pstatus=$1 WHERE id=$2 RETURNING *`;
+  
+  // title,state_id, local_id,location,lga,status,wardheadphone,gps,started
+  const values = [
+  req.body.pstatus,
+  req.params.id
     ];
   try {
   const { rows } = await db.query(updateProject, values);

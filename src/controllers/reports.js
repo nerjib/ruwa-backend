@@ -72,11 +72,25 @@ router.get('/activity/:id', async (req, res) => {
     }
   });
 
+  router.get('/activit/allactivity', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reportactivities';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
 //insert users
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  reports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10) RETURNING *`;
+  reports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps,pstatus)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11) RETURNING *`;
 console.log(req.body)
 const values = [
 req.body.pid,
@@ -88,7 +102,8 @@ req.body.conclusion,
 req.body.followup,
 req.body.compliance,
 moment(new Date()),
-req.body.gps
+req.body.gps,
+req.body.pstatus
 ];
 try {
 const { rows } = await db.query(createUser, values);

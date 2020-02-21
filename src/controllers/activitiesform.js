@@ -13,16 +13,13 @@ const db = require('../dbs/index');
 
 async function createReport(req, res, gifUrl) {
     const createUser = `INSERT INTO
-    reportactivities(rid, pid, date, activity, outcome, imgurl)
-    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
-  
+    cloudimage(rid, pid, imgurl)
+    VALUES ($1, $2, $3) RETURNING *`;
+ // console.log('rid '+req.body.rid)
   const values = [
   req.body.rid,
   req.body.pid,
-  moment(new Date()),
-  req.body.activity,
-  req.body.outcome,
-  gifUrl,
+  gifUrl
     ];
   try {
   const { rows } = await db.query(createUser, values);
@@ -37,16 +34,17 @@ async function createReport(req, res, gifUrl) {
 async function createActivity(req, res) {
     console.log(req.body)
     const createUser = `INSERT INTO
-    reportactivities(pid, date, activity, outcome,rid)
-    VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    reportactivities(pid, date, activity, outcome,rid, imgurl)
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
   
   const values = [
   req.body.pid,
   req.body.date,
   req.body.activity,
   req.body.outcome,
-  req.body.rid
-    ];
+  req.body.rid,
+  req.body.imgurl
+];
   try {
   const { rows } = await db.query(createUser, values);
   // console.log(rows);
