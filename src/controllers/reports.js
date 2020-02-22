@@ -163,8 +163,24 @@ router.put('/:id', async (req, res) => {
   } catch (error) {
   return res.status(400).send(error);
   }
-  
+    
   });
+
+  router.get('/myreports/:uid', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reports where complete=$1 and uid=$2 order by id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, ['1', req.params.uid]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  
 
 module.exports = router;
 

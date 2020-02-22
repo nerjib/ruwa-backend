@@ -35,14 +35,15 @@ router.get('/:id', async (req, res) => {
 //insert users
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  contractors (company,address,email,phone)
-  VALUES ($1, $2,$3,$4) RETURNING *`;
+  contractors (company,address,email,phone,active)
+  VALUES ($1, $2,$3,$4,$5) RETURNING *`;
 
 const values = [
 req.body.company,
 req.body.address,
 req.body.email,
-req.body.phone
+req.body.phone,
+reeq.body.active
 ];
 try {
 const { rows } = await db.query(createUser, values);
