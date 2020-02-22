@@ -19,9 +19,11 @@ create table reports(
     followup varchar(200),
     conclusion varchar(150),
     date timestamp,
+    compliance varchar(50),
     pid varchar(50),
     gps varchar(100),
-    complete varchar(50)
+    complete varchar(50),
+    pstatus varchar(100)
 );
 
 create table projects(
@@ -38,7 +40,14 @@ create table projects(
     gps varchar(100),
     contractor_id varchar(50),
     lot varchar(50),
-    type varchar(50));
+    type varchar(50),
+    ward varchar(100),
+    facility varchar(100),
+    community varchar(100),
+    compartment varchar(100),
+    phase varchar(100),
+    pstatus varchar(500)
+    );
 
      
 create table reportactivities(
@@ -47,6 +56,21 @@ create table reportactivities(
     rid varchar(20),
     date varchar(100),
     activity varchar(200),
-    outcome varchar(200));
+    outcome varchar(200),
+    imgurl varchar(250));
 
-     
+     create table contractors(
+         id serial,
+         comapany varchar(200),
+         address varchar(200),
+         email varchar(200),
+         phone varchar(50),
+         active varchar(50)
+     );
+
+     create table cloudimage(
+         id serial,
+         rid varchar(200),
+         pid varchar(200),
+         imgurl varchar(250)
+     );
