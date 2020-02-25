@@ -125,4 +125,60 @@ router.get('/reports', async (req, res) => {
       return res.status(400).send(`${error} jsh`);
     }
   });
+
+  router.get('/reports/forcelift', async (req, res) => {
+    const getAllQ = 'SELECT  count(*) FROM reports INNER JOIN projects  ON  reports.complete=$1 and reports.pid=projects.id and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [1,'Force Lift']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.get('/reports/solarborehole', async (req, res) => {
+    const getAllQ = 'SELECT  count(*) FROM reports INNER JOIN projects  ON  reports.complete=$1 and reports.pid=projects.id and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [1,'Motorized Solar Borehole']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.get('/reports/communityboreholes', async (req, res) => {
+    const getAllQ = 'SELECT  count(*) FROM reports INNER JOIN projects  ON  reports.complete=$1 and reports.pid=projects.id and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [1,'Community Borehole']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+  router.get('/reports/sanitations', async (req, res) => {
+    const getAllQ = 'SELECT  count(*) FROM reports INNER JOIN projects  ON  reports.complete=$1 and reports.pid=projects.id and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [1,'Sanitation']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
 module.exports =  router;

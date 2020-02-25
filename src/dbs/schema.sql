@@ -23,7 +23,9 @@ create table reports(
     pid varchar(50),
     gps varchar(100),
     complete varchar(50),
-    pstatus varchar(100)
+    pstatus varchar(100),
+    sitestatus varchar(100),
+    sitegps varchar(100)
 );
 
 create table projects(

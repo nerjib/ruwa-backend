@@ -138,11 +138,13 @@ return res.status(400).send(error);
     //console.log('reqqqq '+req.body.community)
 
     const updateProject = `UPDATE projects
-     SET pstatus=$1 WHERE id=$2 RETURNING *`;
+     SET pstatus=$1, status=$2, gps=$3 WHERE id=$4 RETURNING *`;
   
   // title,state_id, local_id,location,lga,status,wardheadphone,gps,started
   const values = [
   req.body.pstatus,
+  req.body.sitestatus,
+  req.body.sitegps,
   req.params.id
     ];
   try {

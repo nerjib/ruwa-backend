@@ -89,8 +89,8 @@ router.get('/activity/:id', async (req, res) => {
 //insert users
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  reports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps,pstatus)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11) RETURNING *`;
+  reports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps,pstatus, sitestatus,sitegps)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12,$13) RETURNING *`;
 console.log(req.body)
 const values = [
 req.body.pid,
@@ -103,7 +103,9 @@ req.body.followup,
 req.body.compliance,
 moment(new Date()),
 req.body.gps,
-req.body.pstatus
+req.body.pstatus,
+req.body.sitestatus,
+req.body.sitegps
 ];
 try {
 const { rows } = await db.query(createUser, values);
@@ -180,7 +182,19 @@ router.put('/:id', async (req, res) => {
     }
   });
 
-  
+  router.get('/completereports/all', async (req, res) => {
+    const getAllQ = 'SELECT count(*)  FROM projects right JOIN contractors ON contractors.id=projects.contractor_id';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
 
 module.exports = router;
 
