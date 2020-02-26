@@ -43,7 +43,7 @@ req.body.company,
 req.body.address,
 req.body.email,
 req.body.phone,
-reeq.body.active
+req.body.active
 ];
 try {
 const { rows } = await db.query(createUser, values);
