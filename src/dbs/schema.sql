@@ -20,7 +20,7 @@ create table reports(
     conclusion varchar(150),
     date timestamp,
     compliance varchar(50),
-    pid varchar(50),
+    pid int(50),
     gps varchar(100),
     complete varchar(50),
     pstatus varchar(100),
@@ -30,8 +30,8 @@ create table reports(
 
 create table projects(
     id serial,
-    state_id varchar(50),
-    local_id varchar(20),
+    state_id int(50),
+    local_id int(20),
     location varchar(100),
     lga varchar(50),
     status varchar(50),
@@ -40,7 +40,7 @@ create table projects(
     wardheadphone varchar(50),
     title varchar(100),
     gps varchar(100),
-    contractor_id varchar(50),
+    contractor_id int(50),
     lot varchar(50),
     type varchar(50),
     ward varchar(100),
@@ -54,8 +54,8 @@ create table projects(
      
 create table reportactivities(
     id serial,
-    pid varchar(50),
-    rid varchar(20),
+    pid int(50),
+    rid int(20),
     date varchar(100),
     activity varchar(200),
     outcome varchar(200),
