@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../dbs/index');
 
 router.get('/', async (req, res) => {
-  const getAllQ = 'SELECT * FROM users order by id desc';
+  const getAllQ = 'SELECT * FROM users order by active asc, id desc';
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
@@ -80,6 +80,56 @@ return res.status(400).send(error);
 }
 
 });
+
+router.put('/deactivate/:id', async (req, res) => {
+  const createUser = `UPDATE users set active=$1  where id=$2 RETURNING *`;
+
+const values = [
+'inactive',
+req.params.id];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+  data: {
+    message: 'User added successfully​',
+    Name: rows[0].first_name,
+    Email: rows[0].email,
+    phone: rows[0].phone,
+  },
+};
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+router.put('/reactivate/:id', async (req, res) => {
+  const createUser = `UPDATE users set active=$1  where id=$2 RETURNING *`;
+
+const values = [
+'active',
+req.params.id];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+  data: {
+    message: 'User added successfully​',
+    Name: rows[0].first_name,
+    Email: rows[0].email,
+    phone: rows[0].phone,
+  },
+};
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
 
 module.exports = router;
 

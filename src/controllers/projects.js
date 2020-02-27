@@ -163,6 +163,75 @@ return res.status(400).send(error);
   
   });
   
+  router.get('/completeprojects/all', async (req, res) => {
+    const getAllQ = 'SELECT  projects.id,projects.title,projects.lga,projects.ward,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id order by projects.id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.get('/completeprojects/sanitations', async (req, res) => {
+    const getAllQ = 'SELECT  projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['Sanitation']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.get('/completeprojects/forcelift', async (req, res) => {
+    const getAllQ = 'SELECT  projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['Force Lift']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.get('/completeprojects/solar', async (req, res) => {
+    const getAllQ = 'SELECT  projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['Motorized Solar Borehole']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+  router.get('/completeprojects/community', async (req, res) => {
+    const getAllQ = 'SELECT  projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['Community Borehole']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
 
 module.exports = router;
 
