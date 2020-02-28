@@ -44,6 +44,19 @@ router.get('/signin/:email', async (req, res) => {
     return res.status(400).send(`${error} jsh`);
   }
 });
+router.get('/admin/:email', async (req, res) => {
+  const getAllQ = 'SELECT * FROM admin WHERE email= $1';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ, [req.params.email]);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
 
 //insert users
 router.post('/', async (req, res) => {
@@ -74,6 +87,28 @@ const data = {
     phone: rows[0].phone,
   },
 };
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
+router.post('/admin', async (req, res) => {
+  const createUser = `INSERT INTO
+  admin (email,phone,role)
+  VALUES ($1, $2) RETURNING *`;
+
+const values = [
+req.body.email,
+req.body.phone
+];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+ };
 return res.status(201).send(data);
 } catch (error) {
 return res.status(400).send(error);
