@@ -164,7 +164,7 @@ return res.status(400).send(error);
   });
   
   router.get('/completeprojects/all', async (req, res) => {
-    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,projects.id,projects.title,projects.lga,projects.ward,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id order by projects.id desc';
+    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,projects.id,projects.title,projects.lga,projects.ward,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id order by projects.lot asc, projects.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
