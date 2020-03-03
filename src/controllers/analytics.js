@@ -181,4 +181,72 @@ router.get('/reports', async (req, res) => {
     }
   });
 
+  //to get daily, montly and weekly number of submited report
+  router.get('/reports/date/all', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reports where complete=$1';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['1']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+  router.get('/reports/date/sanitation', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reports left join projects on reports.pid=projects.id where reports.complete=$1 and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['1','Sanitation']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+  router.get('/reports/date/community', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reports left join projects on reports.pid=projects.id where reports.complete=$1 and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['1','Community Borehole']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+  router.get('/reports/date/force', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reports left join projects on reports.pid=projects.id where reports.complete=$1 and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['1','Force Lift']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+   router.get('/reports/date/solar', async (req, res) => {
+    const getAllQ = 'SELECT * FROM reports left join projects on reports.pid=projects.id where reports.complete=$1 and projects.title=$2';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['1','Motorized Solar Borehole']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+
 module.exports =  router;
