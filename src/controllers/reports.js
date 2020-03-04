@@ -89,8 +89,8 @@ router.get('/activity/:id', async (req, res) => {
 //insert users
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  reports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps,pstatus, sitestatus,sitegps,imgurl)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12,$13,$14) RETURNING *`;
+  reports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps,pstatus, sitestatus,sitegps,imgurl,complete)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12,$13,$14,$15) RETURNING *`;
 console.log(req.body)
 const values = [
 req.body.pid,
@@ -106,7 +106,8 @@ req.body.gps,
 req.body.pstatus,
 req.body.sitestatus,
 req.body.sitegps,
-req.body.imgurl
+req.body.imgurl,
+'1'
 ];
 try {
 const { rows } = await db.query(createUser, values);
