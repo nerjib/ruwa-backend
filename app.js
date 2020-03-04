@@ -100,9 +100,10 @@ app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
 //});
 
 app.post('/api/v1/activityform', upload.single('image'), (req, res) => {
-  //console.log(req.body)
+ // console.log(req.body)
    cloudinary.uploader.upload(req.file.path, function (result) {
       console.log(result.secure_url)
+     // res.send({imgurl:result.secure_url})
      Activity.createReport(req, res, result.secure_url);
     });
   });
