@@ -233,7 +233,7 @@ return res.status(400).send(error);
   });
 
   router.get('/details/:id', async (req, res) => {
-    const getAllQ = 'SELECT projects.lga,projects.status,projects.pstatus,projects.ward,projects.facility,contractors.company,projects.lot,projects.gps, projects.location, users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id WHERE projects.id=$1';
+    const getAllQ = 'SELECT projects.title,projects.lga,projects.status,projects.pstatus,projects.ward,projects.facility,contractors.company,projects.lot,projects.gps, projects.location, users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id WHERE projects.id=$1';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,[req.params.id]);
