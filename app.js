@@ -91,6 +91,7 @@ app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
   });
 });
 
+
 //app.post('/api/v1/activityform',  (req, res) => {
 //console.log(req)
 // cloudinary.uploader.upload(req.body.image, function (result) {
@@ -108,6 +109,15 @@ app.post('/api/v1/activityform', upload.single('image'), (req, res) => {
     });
   });
   
+  app.post('/api/v1/weeklyactivityform', upload.single('image'), (req, res) => {
+    // console.log(req.body)
+      cloudinary.uploader.upload(req.file.path, function (result) {
+         console.log(result.secure_url)
+        // res.send({imgurl:result.secure_url})
+        Activity.createWeeklyReport(req, res, result.secure_url);
+       });
+     });
+   
   app.post('/api/v1/upload', upload.single('image'), (req, res) => {
    // console.log(req.body)
      cloudinary.uploader.upload(req.file.path, function (result) {
@@ -120,6 +130,11 @@ app.post('/api/v1/activityform', upload.single('image'), (req, res) => {
 app.post('/api/v1/activityform1', (req, res) => {
      Activity.createActivity(req, res);
   });
+
+  app.post('/api/v1/weeklyactivityform1', (req, res) => {
+    Activity.createWeeklyActivity(req, res);
+ });
+
 
   
 

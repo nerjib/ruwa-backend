@@ -92,3 +92,19 @@ create table reportactivities(
          pid varchar(200),
          imgurl varchar(250)
      );
+
+     create table weeklycloudimage(
+         id serial,
+         rid integer,
+         pid integer,
+         imgurl varchar(250)
+     );
+
+     create table weeklyreportactivities(
+    id serial,
+    pid integer,
+    rid integer,
+    date varchar(100),
+    activity varchar(200),
+    outcome varchar(200),
+    imgurl varchar(250));

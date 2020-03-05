@@ -55,9 +55,58 @@ async function createActivity(req, res) {
   }
 }
 
+async function createWeeklyReport(req, res, gifUrl) {
+  const createUser = `INSERT INTO
+  weeklycloudimage(rid, pid, imgurl)
+  VALUES ($1, $2, $3) RETURNING *`;
+// console.log('rid '+req.body.rid)
+const values = [
+req.body.rid,
+req.body.pid,
+gifUrl
+  ];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+
+return res.status(201).send(rows);
+} catch (error) {
+return res.status(400).send(error);
+}
+}
+
+
+async function createWeeklyActivity(req, res) {
+  console.log(req.body)
+  const createUser = `INSERT INTO
+  weeklyreportactivities(pid, date, activity, outcome,rid, imgurl)
+  VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+
+const values = [
+req.body.pid,
+req.body.date,
+req.body.activity,
+req.body.outcome,
+req.body.rid,
+req.body.imgurl
+];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+
+return res.status(201).send(rows);
+} catch (error) {
+return res.status(400).send(error);
+}
+}
+
+
 dotenv.config();
 
 module.exports = {
   createReport,
   createActivity,
+  createWeeklyReport,
+  createWeeklyActivity,
+
 };
