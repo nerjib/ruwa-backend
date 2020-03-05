@@ -257,7 +257,7 @@ router.put('/:id', async (req, res) => {
 
 //individual project report
   router.get('/project/:id', async (req, res) => {
-    const getAllQ = 'SELECT  projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,reports.summaryfrom,summaryto,users.first_name,users.last_name from reports left join users on reports.uid=users.id where reports.complete=$1 and reports.pid=$2 order by reports.id desc';
+    const getAllQ = 'SELECT  projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,reports.summaryfrom,summaryto,users.first_name,users.last_name from reports left join users on reports.uid=users.id left join projects on reports.pid=projects.id where reports.complete=$1 and reports.pid=$2 order by reports.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, ['1',req.params.id]);
