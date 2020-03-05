@@ -27,6 +27,22 @@ create table reports(
     sitestatus varchar(100),
     sitegps varchar(100)
 );
+create table weeklyreports(
+    id serial,
+    uid integer not null,
+    summary varchar(200),
+    summaryfrom varchar(50),
+    summaryto varchar(50),
+    followup varchar(200),
+    conclusion varchar(150),
+    date timestamp,
+    compliance varchar(50),
+    pid integer,
+    gps varchar(100),
+    complete varchar(50),
+    pstatus varchar(100),
+    sitestatus varchar(100)
+);
 
 create table projects(
     id serial,

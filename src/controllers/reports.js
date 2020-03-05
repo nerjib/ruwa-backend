@@ -273,5 +273,110 @@ router.put('/:id', async (req, res) => {
     }
   });
 
+  //weekly report pos
+  router.post('/submitted/weekly', async (req, res) => {
+    const createUser = `INSERT INTO
+    weeklyreports(pid, uid, summary, summaryfrom,summaryto, conclusion, followup, compliance,date,gps,pstatus, sitestatus)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12) RETURNING *`;
+  console.log(req.body)
+  const values = [
+  req.body.pid,
+  req.body.uid,
+  req.body.summary,
+  req.body.summaryfrom,
+  req.body.summaryto,
+  req.body.conclusion,
+  req.body.followup,
+  req.body.compliance,
+  moment(new Date()),
+  req.body.gps,
+  req.body.pstatus,
+  req.body.sitestatus
+  ];
+  try {
+  const { rows } = await db.query(createUser, values);
+  // console.log(rows);
+  
+  return res.status(201).send(rows);
+  } catch (error) {
+  return res.status(400).send(error);
+  }
+  
+  });
+
+  router.get('/submitted/weekly', async (req, res) => {
+    const getAllQ = 'SELECT * FROM weeklyreports where complete=$1 order by id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, ['1']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.put('/submitted/weekly/:id', async (req, res) => {
+    const updateReport = `UPDATE
+    weeklyreports SET conclusion=$1, compliance=$2, followup=$3 WHERE id=$4 and uid=$5
+     RETURNING *`;
+  console.log(req.body)
+  const values = [
+  req.body.conclusion,
+  req.body.compliance,
+  req.body.followup,
+  req.body.rid,
+  req.body.uid
+  ];
+  try {
+  const { rows } = await db.query(updateReport, values);
+  // console.log(rows);
+  
+  return res.status(201).send(rows);
+  } catch (error) {
+  return res.status(400).send(error);
+  }
+  
+  });
+
+  router.get('/submitted/incomplete/:id', async (req, res) => {
+    const getAllQ = 'SELECT * FROM weeklyreports WHERE id= $1';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+  
+  router.put('/weekly/save/:id', async (req, res) => {
+    console.log('kkkk')
+  const updateReport = `UPDATE
+  weeklyreports SET complete=$1 WHERE id=$2 and uid=$3
+   RETURNING *`;
+console.log(req.body)
+const values = [
+req.body.complete,
+req.params.id,
+req.body.uid
+];
+try {
+const { rows } = await db.query(updateReport, values);
+// console.log(rows);
+
+return res.status(201).send(rows);
+} catch (error) {
+return res.status(400).send(error);
+}
+  
+});
+
+  
 module.exports = router;
 
