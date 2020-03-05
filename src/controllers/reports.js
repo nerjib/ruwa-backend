@@ -173,6 +173,7 @@ router.put('/:id', async (req, res) => {
     
   });
 
+  //get daily report
   router.get('/myreports/:uid', async (req, res) => {
     const getAllQ = 'SELECT * FROM reports where complete=$1 and uid=$2 order by id desc';
     try {
@@ -186,6 +187,22 @@ router.put('/:id', async (req, res) => {
       return res.status(400).send(`${error} jsh`);
     }
   });
+
+  //get weekly reports
+  router.get('/myreports/weekly/:uid', async (req, res) => {
+    const getAllQ = 'SELECT * FROM weeklyreports where complete=$1 and uid=$2 order by id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, ['1', req.params.uid]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
 //reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id
   router.get('/completereports/all', async (req, res) => {
     const getAllQ = 'SELECT  projects.community,projects.facility,projects.status,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 order by reports.id desc';
