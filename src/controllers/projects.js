@@ -162,6 +162,35 @@ return res.status(400).send(error);
   }
   
   });
+
+  router.put('/weekly/pstatus/:id', async (req, res) => {
+    //console.log('reqqqq '+req.body.community)
+
+    const updateProject = `UPDATE projects
+     SET pstatus=$1, status=$2 WHERE id=$3 RETURNING *`;
+  
+  // title,state_id, local_id,location,lga,status,wardheadphone,gps,started
+  const values = [
+  req.body.pstatus,
+  req.body.sitestatus,
+  req.params.id
+    ];
+  try {
+  const { rows } = await db.query(updateProject, values);
+  //console.log(rows);
+  const data = {
+    status: 'success',
+    data: {
+      message: 'Project updated successfully​',
+    },
+  };
+  return res.status(201).json(data);
+  } catch (error) {
+  return res.status(400).send(error);
+  }
+  
+  });
+  
   
   router.get('/completeprojects/all', async (req, res) => {
     const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,projects.id,projects.title,projects.lga,projects.ward,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id order by projects.lot asc, projects.id desc';
