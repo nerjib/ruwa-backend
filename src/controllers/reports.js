@@ -423,6 +423,19 @@ router.get('/activity/weekly/allactivity', async (req, res) => {
   }
 });
 
+router.get('/weekly/completereports/all', async (req, res) => {
+  const getAllQ = 'SELECT  projects.community,projects.facility,projects.status,projects.pstatus,weeklyreports.id,users.first_name,users.last_name,projects.gps,weeklyreports.date,users.role, weeklyreports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, weeklyreports.id from weeklyreports left join projects on projects.id=weeklyreports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where weeklyreports.complete=$1 order by weeklyreports.id desc';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ, [1]);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
 
 
   
