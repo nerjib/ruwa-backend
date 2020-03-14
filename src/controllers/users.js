@@ -165,6 +165,35 @@ return res.status(400).send(error);
 
 });
 
+router.put('/updateuser/:id', async (req, res) => {
+  const createUser = `UPDATE users set first_name=$1, last_name=$2, phone=$3, email=$4, lga=$5  where id=$6 RETURNING *`;
+
+const values = [
+req.body.fname,
+req.body.lname,
+req.body.phone,
+req.body.email,
+req.body.lga,
+req.params.id];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+  data: {
+    message: 'User added successfully​',
+    Name: rows[0].first_name,
+    Email: rows[0].email,
+    phone: rows[0].phone,
+  },
+};
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
 
 module.exports = router;
 
