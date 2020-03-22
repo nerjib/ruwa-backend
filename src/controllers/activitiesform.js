@@ -101,6 +101,26 @@ return res.status(400).send(error);
 }
 
 
+async function UpdateDailyReport(req, res, imgUrl) {
+  console.log(req.body)
+  const updateReport = `UPDATE reports set imgurl=$1 WHERE id=$2`;
+
+const values = [
+imgUrl,
+req.body.rid
+];
+try {
+const { rows } = await db.query(updateReport, values);
+// console.log(rows);
+
+return res.status(201).send(rows);
+} catch (error) {
+return res.status(400).send(error);
+}
+}
+
+
+
 dotenv.config();
 
 module.exports = {
@@ -108,5 +128,5 @@ module.exports = {
   createActivity,
   createWeeklyReport,
   createWeeklyActivity,
-
+  UpdateDailyReport
 };
