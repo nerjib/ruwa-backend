@@ -221,7 +221,7 @@ return res.status(400).send(error);
   });
 
   router.get('/completeprojects/forcelift', async (req, res) => {
-    const getAllQ = 'SELECT    projects.community,projects.facility,projects.lot,projects.ward,projects.pstatus,projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    const getAllQ = 'SELECT    projects.local_id,projects.state_id,projects.community,projects.facility,projects.lot,projects.ward,projects.pstatus,projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Force Lift']);
@@ -235,7 +235,7 @@ return res.status(400).send(error);
   });
 
   router.get('/completeprojects/solar', async (req, res) => {
-    const getAllQ = 'SELECT    projects.community,projects.facility,projects.lot,projects.ward,projects.pstatus,projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    const getAllQ = 'SELECT    projects.local_id,projects.state_id,projects.community,projects.facility,projects.lot,projects.ward,projects.pstatus,projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Motorized Solar Borehole']);
@@ -248,7 +248,7 @@ return res.status(400).send(error);
     }
   });
   router.get('/completeprojects/community', async (req, res) => {
-    const getAllQ = 'SELECT  projects.community,projects.facility,projects.ward,projects.lot,projects.pstatus,projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
+    const getAllQ = 'SELECT  projects.local_id,projects.state_id,projects.community,projects.facility,projects.ward,projects.lot,projects.pstatus,projects.id,projects.title,projects.lga,projects.location,projects.status,contractors.company,users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where projects.title=$1 order by projects.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Community Borehole']);
@@ -262,7 +262,7 @@ return res.status(400).send(error);
   });
 
   router.get('/details/:id', async (req, res) => {
-    const getAllQ = 'SELECT projects.title,projects.lga,projects.status,projects.pstatus,projects.ward,projects.facility,contractors.company,projects.lot,projects.gps, projects.location, users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id WHERE projects.id=$1';
+    const getAllQ = 'SELECT projects.local_id,projects.state_id,projects.title,projects.lga,projects.status,projects.pstatus,projects.ward,projects.facility,contractors.company,projects.lot,projects.gps, projects.location, users.first_name,users.last_name from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id WHERE projects.id=$1';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,[req.params.id]);
