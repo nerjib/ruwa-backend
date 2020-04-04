@@ -64,5 +64,38 @@ return res.status(400).send(error);
 
 });
 
+
+
+router.put('/:id', async (req, res) => {
+  const createUser = `UPDATE contractors SET company=$1, address=$2, email=$3, phone=$4, active=$5 where id=$6 RETURNING *`;
+
+const values = [
+req.body.company,
+req.body.address,
+req.body.email,
+req.body.phone,
+req.body.active,
+req.params.id
+];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+  data: {
+    message: 'User added successfully​',
+    Name: rows[0].first_name,
+    Email: rows[0].email,
+    phone: rows[0].phone,
+  },
+};
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
+
 module.exports = router;
 
