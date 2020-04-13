@@ -15,6 +15,7 @@ const cloudinary = require('cloudinary');
 const Analytics = require('./src/controllers/analytics');
 const Reports = require('./src/controllers/reports');
 const Activity = require('./src/controllers/activitiesform')
+const Performance = require('./src/controllers/performance')
 
 
 app.use(cors())
@@ -83,6 +84,8 @@ app.use('/api/v1/contractors', Contractors);
 app.use('/api/v1/localreports', LocalReports);
 app.use('/api/v1/analytics', Analytics);
 app.use('/api/v1/reports', Reports);
+app.use('/api/v1/performance', Performance);
+
 
 app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
   cloudinary.uploader.upload(req.file.path, function (result) {

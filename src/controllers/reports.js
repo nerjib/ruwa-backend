@@ -218,7 +218,7 @@ router.put('/:id', async (req, res) => {
     }
   });
   router.get('/completereports/community', async (req, res) => {
-    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 ';
+    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 order by reports.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [1,'Community Borehole']);
@@ -232,7 +232,7 @@ router.put('/:id', async (req, res) => {
   });
   //Force Lift reports
   router.get('/completereports/forcelift', async (req, res) => {
-    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 ';
+    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 order by reports.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [1,'Force Lift']);
@@ -247,7 +247,7 @@ router.put('/:id', async (req, res) => {
   //solar reports
    //Solar
    router.get('/completereports/solar', async (req, res) => {
-    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 ';
+    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 order by reports.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [1,'Motorized Solar Borehole']);
@@ -262,7 +262,7 @@ router.put('/:id', async (req, res) => {
 
   //Sanitaion
   router.get('/completereports/sanitation', async (req, res) => {
-    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 ';
+    const getAllQ = 'SELECT   projects.community,projects.facility,projects.lot,projects.pstatus,reports.id,users.first_name,users.last_name,projects.gps,reports.date,users.role, reports.id, projects.title,projects.lot, projects.lga,projects.ward, projects.community,projects.facility, contractors.company, reports.id from reports left join projects on projects.id=reports.pid left join contractors on contractors.id=projects.contractor_id left join users on users.id=projects.local_id where reports.complete=$1 and projects.title=$2 order by reports.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [1,'Sanitation']);
