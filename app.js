@@ -141,7 +141,7 @@ app.post('/api/v1/activityform1', (req, res) => {
 //Change daily report image
  app.post('/api/v1/updatedailyreport', upload.single('image'), (req, res) => {
   // console.log(req.body)
-    cloudinary.uploader.upload(req.file.path,{quality:50}, function (result) {
+    cloudinary.uploader.upload(req.file.path, function (result) {
        console.log(result.secure_url)
       // res.send({imgurl:result.secure_url})
       Activity.UpdateDailyReport(req, res, result.secure_url);
