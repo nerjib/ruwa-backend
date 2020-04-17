@@ -147,6 +147,15 @@ app.post('/api/v1/activityform1', (req, res) => {
       Activity.UpdateDailyReport(req, res, result.secure_url);
      });
    });
+
+   app.post('/api/v1/updateweeklyreport', upload.single('image'), (req, res) => {
+    // console.log(req.body)
+      cloudinary.uploader.upload(req.file.path, function (result) {
+         console.log(result.secure_url)
+        // res.send({imgurl:result.secure_url})
+        Activity.UpdateWeeklyReport(req, res, result.secure_url);
+       });
+     });
   
 
 

@@ -119,6 +119,28 @@ return res.status(400).send(error);
 }
 }
 
+async function UpdateWeeklyReport(req, res, imgUrl) {
+  console.log(req.body)
+  
+  
+  const createUser = `INSERT INTO
+  weeklyreportactivities(pid, imgurl)
+  VALUES ($1, $2) RETURNING *`;
+
+const values = [
+req.body.pid,
+imgUrl
+];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+
+return res.status(201).send(rows);
+} catch (error) {
+return res.status(400).send(error);
+}
+}
+
 
 
 dotenv.config();
@@ -128,5 +150,6 @@ module.exports = {
   createActivity,
   createWeeklyReport,
   createWeeklyActivity,
-  UpdateDailyReport
+  UpdateDailyReport,
+  UpdateWeeklyReport
 };
