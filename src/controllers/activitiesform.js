@@ -124,11 +124,11 @@ async function UpdateWeeklyReport(req, res, imgUrl) {
   
   
   const createUser = `INSERT INTO
-  weeklyreportactivities(pid, imgurl)
+  weeklyreportactivities(rid, imgurl)
   VALUES ($1, $2) RETURNING *`;
 
 const values = [
-req.body.pid,
+req.body.rid,
 imgUrl
 ];
 try {
