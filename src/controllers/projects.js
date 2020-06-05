@@ -34,7 +34,7 @@ router.get('/:id', async(req, res) =>{
   });
 
   router.get('/localsupervisors/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE local_id=$1 & done=$2';
+    const project = 'SELECT * FROM projects WHERE local_id=$1 && done=$2';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
@@ -48,7 +48,7 @@ router.get('/:id', async(req, res) =>{
   });
 
   router.get('/statesupervisors/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE state_id=$1 & done=$2';
+    const project = 'SELECT * FROM projects WHERE state_id=$1 && done=$2';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
