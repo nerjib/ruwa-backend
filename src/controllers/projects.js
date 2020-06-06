@@ -34,11 +34,11 @@ router.get('/:id', async(req, res) =>{
   });
 
   router.get('/localsupervisors/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE local_id=$1';
+    const project = 'SELECT * FROM projects WHERE local_id=$1 and  done=$4';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
-      const { rows } = await db.query(project, [req.params.id]);
+      const { rows } = await db.query(project, [req.params.id,'']);
      //alert(rows[0])        
   //   console.log('tt'+rows)     
       return res.status(200).json(rows);
