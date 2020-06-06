@@ -38,7 +38,7 @@ router.get('/:id', async(req, res) =>{
    // console.log(req.params.id);
     try {
    //   console.log('dd')
-      const { rows } = await db.query(project, [req.params.id,'0']);
+      const { rows } = await db.query(project, [req.params.id]);
      //alert(rows[0])        
   //   console.log('tt'+rows)     
       return res.status(200).json(rows);
