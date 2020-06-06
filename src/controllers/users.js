@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/usersbyphase/:phase', async (req, res) => {
-  const getAllQ = 'SELECT users.last_name,users.first_name,users.other_name,projects.title,projects.pstatus,users.id FROM users left join projects on (users.id=projects.local_id or users.id=projects.state_id) where exists (SELECT title from projects where projects.phase=$1 and(projects.state_id=users.id or projects.local_id=users.id)) group by users.last_name,users.first_name,users.other_name,projects.title,users.id,projects.pstatus';
+  const getAllQ = 'SELECT users.last_name,users.first_name,users.other_name,projects.title,users.id FROM users left join projects on (users.id=projects.local_id or users.id=projects.state_id) where exists (SELECT title from projects where projects.phase=$1 and(projects.state_id=users.id or projects.local_id=users.id)) group by users.last_name,users.first_name,users.other_name,projects.title,users.id';
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,[req.params.phase]);
