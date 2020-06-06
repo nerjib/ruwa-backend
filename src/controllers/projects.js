@@ -76,7 +76,7 @@ router.get('/:id', async(req, res) =>{
   });
 
   // fro app not to show  state supdone phases in task
-  router.get('/statesupervisors/:id', async(req, res) =>{
+  router.get('/statesupervisors/donephases/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE state_id=$1 and done=$2';
    // console.log(req.params.id);
     try {
