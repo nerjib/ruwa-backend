@@ -43,6 +43,19 @@ router.get('/reportssend/:id', async (req, res) => {
     return res.status(400).send(`${error} jsh`);
   }
 });
+router.get('/weeklyreportssend/:id', async (req, res) => {
+  const getAllQ = 'SELECT projects.title,projects.phase,weeklyreports.pstatus,count(weeklyreports.pstatus) FROM weeklyreports left join projects on projects.id=weeklyreports.pid where uid=$1 and weeklyreports.complete=$2 group by weeklyreports.pstatus,projects.title,projects.phase order by projects.phase desc';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ, [req.params.id, 1]);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
 
 router.get('/:id', async (req, res) => {
   const getAllQ = 'SELECT * FROM users WHERE id= $1';
