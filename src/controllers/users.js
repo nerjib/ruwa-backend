@@ -31,10 +31,10 @@ router.get('/usersbyphase/:phase', async (req, res) => {
   }
 });
 router.get('/reportssend/:id', async (req, res) => {
-  const getAllQ = 'SELECT projects.title,projects.phase,reports.pstatus,count(reports.pstatus) FROM reports left join projects on projects.id=reports.pid where uid=$1 group by reports.pstatus,projects.title,projects.phase order by projects.phase desc';
+  const getAllQ = 'SELECT projects.title,projects.phase,reports.pstatus,count(reports.pstatus) FROM reports left join projects on projects.id=reports.pid where uid=$1 and reports.complete=$2 group by reports.pstatus,projects.title,projects.phase order by projects.phase desc';
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ, [req.params.id]);
+    const { rows } = await db.query(getAllQ, [req.params.id, 1]);
     return res.status(201).send(rows);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
