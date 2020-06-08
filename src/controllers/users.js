@@ -75,7 +75,7 @@ router.get('/signin/:email', async (req, res) => {
   const getAllQ = 'SELECT * FROM users WHERE email= $1';
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ, [req.params.email]);
+    const { rows } = await db.query(getAllQ, [(req.params.email).toLowerCase()]);
     return res.status(201).send(rows);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
