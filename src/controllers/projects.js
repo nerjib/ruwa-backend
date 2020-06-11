@@ -46,6 +46,7 @@ router.get('/:id', async(req, res) =>{
       return res.status(400).send(error);
     }
   });
+  {/*}
   //for app not to show done phases in task
   router.get('/localsupervisors/donephases/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE local_id=$1 and done=$2 order by phase desc';
@@ -60,7 +61,20 @@ router.get('/:id', async(req, res) =>{
       return res.status(400).send(error);
     }
   });
-
+*/}
+router.get('/localsupervisors/donephases/:id', async(req, res) =>{
+  const project = 'SELECT * FROM projects WHERE local_id=$1  order by phase desc';
+ // console.log(req.params.id);
+  try {
+ //   console.log('dd')
+    const { rows } = await db.query(project);
+   //alert(rows[0])        
+//   console.log('tt'+rows)     
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+});
   router.get('/statesupervisors/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE state_id=$1';
    // console.log(req.params.id);
@@ -74,7 +88,7 @@ router.get('/:id', async(req, res) =>{
       return res.status(400).send(error);
     }
   });
-
+{/*}
   // fro app not to show  state supdone phases in task
   router.get('/statesupervisors/donephases/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE state_id=$1 and done=$2 order by phase desc';
@@ -90,7 +104,20 @@ router.get('/:id', async(req, res) =>{
     }
   });
 
-
+*/}
+router.get('/statesupervisors/donephases/:id', async(req, res) =>{
+  const project = 'SELECT * FROM projects WHERE state_id=$1  order by phase desc';
+ // console.log(req.params.id);
+  try {
+ //   console.log('dd')
+    const { rows } = await db.query(project);
+   //alert(rows[0])        
+//   console.log('tt'+rows)     
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+});
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
   projects (title,state_id, local_id,location,lga,status,wardheadphone,gps,started,lot,type,phase,contractor_id,ward,community,facility)
