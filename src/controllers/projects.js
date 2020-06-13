@@ -46,14 +46,14 @@ router.get('/:id', async(req, res) =>{
       return res.status(400).send(error);
     }
   });
-  {/*}
+  {
   //for app not to show done phases in task
-  router.get('/localsupervisors/donephases/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE local_id=$1 and done=$2 order by phase desc';
+  router.get('/localsupervisors/donephases1/:id', async(req, res) =>{
+    const project = 'SELECT * FROM projects WHERE local_id=$1 and done!=$2 order by phase desc';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
-      const { rows } = await db.query(project, [req.params.id,'0']);
+      const { rows } = await db.query(project, [req.params.id,'1']);
      //alert(rows[0])        
   //   console.log('tt'+rows)     
       return res.status(200).json(rows);
@@ -61,7 +61,7 @@ router.get('/:id', async(req, res) =>{
       return res.status(400).send(error);
     }
   });
-*/}
+}
 router.get('/localsupervisors/donephases/:id', async(req, res) =>{
   const project = 'SELECT * FROM projects WHERE local_id=$1  order by phase desc';
  // console.log(req.params.id);
@@ -88,14 +88,14 @@ router.get('/localsupervisors/donephases/:id', async(req, res) =>{
       return res.status(400).send(error);
     }
   });
-{/*}
+{
   // fro app not to show  state supdone phases in task
-  router.get('/statesupervisors/donephases/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE state_id=$1 and done=$2 order by phase desc';
+  router.get('/statesupervisors/donephases1/:id', async(req, res) =>{
+    const project = 'SELECT * FROM projects WHERE state_id=$1 and done!=$2 order by phase desc';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
-      const { rows } = await db.query(project, [req.params.id, '0']);
+      const { rows } = await db.query(project, [req.params.id, '1']);
      //alert(rows[0])        
   //   console.log('tt'+rows)     
       return res.status(200).json(rows);
@@ -104,7 +104,7 @@ router.get('/localsupervisors/donephases/:id', async(req, res) =>{
     }
   });
 
-*/}
+}
 router.get('/statesupervisors/donephases/:id', async(req, res) =>{
   const project = 'SELECT * FROM projects WHERE state_id=$1  order by phase desc';
  // console.log(req.params.id);
