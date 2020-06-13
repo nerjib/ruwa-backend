@@ -49,11 +49,11 @@ router.get('/:id', async(req, res) =>{
   {
   //for app not to show done phases in task
   router.get('/localsupervisors/donephases1/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE local_id=$1 and done!=$2 order by phase desc';
+    const project = 'SELECT * FROM projects WHERE local_id=$1 and done is null order by phase desc';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
-      const { rows } = await db.query(project, [req.params.id,'1']);
+      const { rows } = await db.query(project, [req.params.id]);
      //alert(rows[0])        
   //   console.log('tt'+rows)     
       return res.status(200).json(rows);
@@ -91,7 +91,7 @@ router.get('/localsupervisors/donephases/:id', async(req, res) =>{
 {
   // fro app not to show  state supdone phases in task
   router.get('/statesupervisors/donephases1/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE state_id=$1 and done!=$2 order by phase desc';
+    const project = 'SELECT * FROM projects WHERE state_id=$1 and done is null order by phase desc';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
