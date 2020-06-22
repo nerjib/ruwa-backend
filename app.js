@@ -16,6 +16,8 @@ const Analytics = require('./src/controllers/analytics');
 const Reports = require('./src/controllers/reports');
 const Activity = require('./src/controllers/activitiesform')
 const Performance = require('./src/controllers/performance')
+const Monitors = require('./src/controllers/monitors')
+
 
 
 app.use(cors())
@@ -79,6 +81,7 @@ res.json({
 })
 
 app.use('/api/v1/users', Users);
+app.use('/api/v1/monitors', Monitors);
 app.use('/api/v1/projects', Projects);
 app.use('/api/v1/contractors', Contractors);
 app.use('/api/v1/localreports', LocalReports);
