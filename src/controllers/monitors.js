@@ -5,7 +5,7 @@ const db = require('../dbs/index');
 
 
 router.get('/signin/:email', async (req, res) => {
-    const getAllQ = 'SELECT * FROM users WHERE email= $1';
+    const getAllQ = 'SELECT * FROM monitors WHERE email= $1';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [(req.params.email).toLowerCase()]);
