@@ -17,6 +17,8 @@ const Reports = require('./src/controllers/reports');
 const Activity = require('./src/controllers/activitiesform')
 const Performance = require('./src/controllers/performance')
 const Monitors = require('./src/controllers/monitors')
+const MonitorsRep = require('./src/controllers/monitorsReport')
+
 
 
 
@@ -87,6 +89,7 @@ app.use('/api/v1/contractors', Contractors);
 app.use('/api/v1/localreports', LocalReports);
 app.use('/api/v1/analytics', Analytics);
 app.use('/api/v1/reports', Reports);
+app.use('/api/v1/monitorsreports', MonitorsRep);
 app.use('/api/v1/performance', Performance);
 
 
