@@ -12,6 +12,7 @@ router.post('/', async (req, res) => {
   req.body.pid,
   req.body.mid,
   req.body.remark,
+  req.body.imgurl,
   req.body.date,
   moment(new Date())
   ];
