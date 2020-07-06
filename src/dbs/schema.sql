@@ -108,3 +108,44 @@ create table reportactivities(
     activity varchar(200),
     outcome varchar(200),
     imgurl varchar(250));
+
+
+    create table watereval(
+        id serial,
+        pid integer,
+        mid integer,
+        mon varchar,
+        geo varchar,
+           setback varchar,     cdate varchar,    casing varchar,    casedepth varchar,
+               casingd varchar,    casingr varchar,    swl varchar,
+    yielda varchar,    grout varchar,    pumpd varchar,    pumpt varchar,    watera varchar,
+       color varchar,    taste varchar,    odour varchar,
+    platformd varchar,   shuttr varchar, stability varchar,    soakpit varchar,    signpost varchar, 
+       cordinate varchar,   pumps varchar,    power varchar,
+    cable varchar,    earth varchar,    tankpvc varchar,   
+     tankc varchar,    tankcap varchar,    stanchion varchar,    antirust varchar,
+    reticulated varchar,    island varchar,    fenced varchar,
+     visible varchar,    imgurl1 varchar,    imgurl2 varchar,    imgurl3 varchar
+    );
+
+
+
+
+    create table sanitationeval(
+        id serial,
+        pid integer,        
+        mid integer, mon varchar,
+                setback varchar, structure varchar, cdate varchar,usage varchar,
+                restoration varchar,distance varchar,
+                area varchar, pitarea varchar,compartment varchar,urinals varchar,
+                nourinals varchar,tiled varchar,laterinet varchar,
+                tilequality varchar,  tilec varchar,nobasins varchar,washbasins varchar,
+                physicallyaid varchar,door varchar,gauge varchar,antirust varchar,
+                subs varchar,slabs varchar,pit varchar,crack varchar,crackt varchar,
+                defect varchar,sdefect varchar,rendered varchar,sandblast varchar,
+                artwork varchar,
+                tank varchar,tankembeded varchar,tankcap varchar,tankc varchar,soakpit varchar,
+                urinalpit varchar, imgurl1 varchar,
+                imgurl2 varchar,imgurl3 varchar,imgurl4 varchar,
+                    time timestamp
+    )
