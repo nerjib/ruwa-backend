@@ -49,7 +49,7 @@ router.get('/:id', async(req, res) =>{
   {
   //for app not to show done phases in task
   router.get('/localsupervisors/donephases/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE local_id=$1 and done=$2 order by phase desc';
+    const project = 'SELECT projects.id,projects.state_id,projects.local_id,projects.lga,projects.status,projects.started,projects.title,projects.gps,projects.contractor_id,projects.lot,projects.ward,projects.community,projects.phase,contractors.company FROM projects left join contractors on projects.contractor_id=contractors.id WHERE projects.local_id=$1 and projects.done=$2 order by phase desc';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
@@ -63,7 +63,7 @@ router.get('/:id', async(req, res) =>{
   });
 }
 router.get('/localsupervisors/donephases1/:id', async(req, res) =>{
-  const project = 'SELECT * FROM projects WHERE local_id=$1  order by phase desc';
+  const project = 'SELECT * FROM projects  WHERE local_id=$1  order by phase desc';
  // console.log(req.params.id);
   try {
  //   console.log('dd')
@@ -91,7 +91,7 @@ router.get('/localsupervisors/donephases1/:id', async(req, res) =>{
 {
   // fro app not to show  state supdone phases in task
   router.get('/statesupervisors/donephases/:id', async(req, res) =>{
-    const project = 'SELECT * FROM projects WHERE state_id=$1 and done=$2 order by phase desc';
+    const project = 'SELECT projects.id,projects.state_id,projects.local_id,projects.lga,projects.status,projects.started,projects.title,projects.gps,projects.contractor_id,projects.lot,projects.ward,projects.community,projects.phase,contractors.company FROM projects left join contractors on projects.contractor_id=contractors.id WHERE projects.state_id=$1 and projects.done=$2 order by phase desc';
    // console.log(req.params.id);
     try {
    //   console.log('dd')
