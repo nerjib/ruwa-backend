@@ -74,9 +74,9 @@ router.post('/', async (req, res) => {
       yielda,    grout,    pumpd,    pumpt,    watera,   color,    taste,    odour,
       platformd,   shuttr, stability,    soakpit,    signpost,    cordinate,   pumps,    power,
       cable,    earth,    tankpvc,    tankc,    tankcap,    stanchion,    antirust,
-      reticulated,    island,    fenced,  visible,    imgurl1,    imgurl2,    imgurl3, time)
+      reticulated,    island,    fenced,  visible,    imgurl1,    imgurl2,    imgurl3, time,gentime)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9,$10,$11, $12, $13, $14, $15, $16, $17, $18,$19,$20,
-      $21, $22, $23, $24, $25, $26, $27, $28,$29,$30, $31, $32, $33, $34, $35, $36, $37, $38,$39,$40,$41,$42) RETURNING *`;
+      $21, $22, $23, $24, $25, $26, $27, $28,$29,$30, $31, $32, $33, $34, $35, $36, $37, $38,$39,$40,$41,$42,$43) RETURNING *`;
   //console.log(req.body)
   const values = [
     req.body.pid, req.body.mid, req.body.mon, req.body.geo,   req.body.setback,
@@ -90,7 +90,8 @@ router.post('/', async (req, res) => {
     req.body.tankcap,    req.body.stanchion,    req.body.antirust,
     req.body.reticulated,    req.body.island,    req.body.fenced,  req.body.visible,
     req.body.imgurl1,    req.body.imgurl2,    req.body.imgurl3,
-  moment(new Date())
+  moment(new Date()),
+  req.body.gentime
   ];
   try {
   const { rows } = await db.query(createUser, values);
@@ -111,9 +112,9 @@ router.post('/', async (req, res) => {
       tilequality,  tilec,nobasins,washbasins,physicallyaid,door,gauge,antirust,
       subs,slabs,pit,crack,crackt,defect,sdefect,rendered,sandblast,artwork,
       tank,tankembeded,tankcap,tankc,soakpit,urinalpit,imgurl1,
-      imgurl2,imgurl3,imgurl4,time)
+      imgurl2,imgurl3,imgurl4,time,gentime,cordinate)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9,$10,$11, $12, $13, $14, $15, $16, $17, $18,$19,$20,
-      $21, $22, $23, $24, $25, $26, $27, $28,$29,$30, $31, $32, $33, $34, $35, $36, $37, $38,$39,$40,$41,$42,$43,$44,$45) RETURNING *`;
+      $21, $22, $23, $24, $25, $26, $27, $28,$29,$30, $31, $32, $33, $34, $35, $36, $37, $38,$39,$40,$41,$42,$43,$44,$45,$46,$47) RETURNING *`;
   //console.log(req.body)
   const values = [
     req.body.pid, req.body.mid, req.body.mon,
@@ -129,7 +130,8 @@ router.post('/', async (req, res) => {
     req.body.tank, req.body.tankembeded, req.body.tankcap, req.body.tankc,
     req.body.soakpit, req.body.urinalpit, req.body.imgurl1,
     req.body.imgurl2, req.body.imgurl3, req.body.imgurl4,
-        moment(new Date())
+        moment(new Date()),
+        req.body.gentime, req.body.cordinate
   ];
   try {
   const { rows } = await db.query(createUser, values);
