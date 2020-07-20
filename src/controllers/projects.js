@@ -33,6 +33,22 @@ router.get('/:id', async(req, res) =>{
     }
   });
 
+  router.get('/thirdparty/:id', async(req, res) =>{
+    const project = 'SELECT count(distinct date(reports.date)) FROM projects left join reports on reports.pid=projects.pid  WHERE reports.thirdparty=$1 and projects.id=$2';
+    console.log(req.params.id);
+    try {
+      const { rows } = await db.query(project, ['yes',req.params.id]);
+     console.log(rows[0])
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'project Not found' });
+      }
+          rows
+      return res.status(200).json(rows);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  });
+
   router.get('/localsupervisors/:id', async(req, res) =>{
     const project = 'SELECT * FROM projects WHERE local_id=$1';
    // console.log(req.params.id);
