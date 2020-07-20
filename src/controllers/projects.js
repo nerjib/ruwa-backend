@@ -34,7 +34,7 @@ router.get('/:id', async(req, res) =>{
   });
 
   router.get('/thirdparty/:id', async(req, res) =>{
-    const project = 'SELECT count(distinct date(reports.date)) FROM projects left join reports on reports.pid=projects.pid  WHERE reports.thirdparty=$1 and projects.id=$2';
+    const project = 'SELECT count(distinct date(reports.date)) FROM projects left join reports on reports.pid=projects.id  WHERE reports.thirdparty=$1 and projects.id=$2';
     console.log(req.params.id);
     try {
       const { rows } = await db.query(project, ['yes',req.params.id]);
