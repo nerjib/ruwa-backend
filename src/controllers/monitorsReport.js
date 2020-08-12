@@ -68,6 +68,20 @@ router.post('/', async (req, res) => {
     }
   });  
 
+  router.get('/watereval/reports/:id', async (req, res) => {
+    const getAllQ = 'SELECT * FROM watereval where id=$1';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
   router.get('/sanitationeval', async (req, res) => {
     const getAllQ = 'SELECT * FROM sanitationeval';
     try {
@@ -82,6 +96,34 @@ router.post('/', async (req, res) => {
     }
   });  
 
+
+  router.get('/sanitationeval/:id', async (req, res) => {
+    const getAllQ = 'SELECT * FROM sanitationeval where pid=$1';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });  
+
+  router.get('/sanitationeval/reports/:id', async (req, res) => {
+    const getAllQ = 'SELECT * FROM sanitationeval where id=$1';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
 
   router.post('/watereval', async (req, res) => {
     const createUser = `INSERT INTO
