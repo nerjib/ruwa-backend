@@ -78,7 +78,7 @@ const getHpbhDrilling = async()=>{
 }
 
   const getHpbhPt= async()=>{
-    const getAllQ = `update solrcov set tt=10 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update solrcov set pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['PT']);
@@ -149,7 +149,7 @@ const getHpbhDrilling = async()=>{
 
   
   const sumHpbh = async()=>{
-    const getAllQ = `update hpbhcov set total=(gs+tos+drilling+pt+pi+platforming+cr+fr),total2=(gs+tos+drilling+pt+pi+platforming+cr+fr) where pid is not null)`
+    const getAllQ = `update hpbhcov set total=(gs+tos+drilling+pt+pi+platforming+cr+fr),total2=(gs+tos+drilling+pt+pi+platforming+cr+fr))`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
@@ -168,10 +168,10 @@ const getHpbhDrilling = async()=>{
 
 
   const getHpbhFr = async()=>{
-    const getAllQ = `update hpbhcov set fr=15,total2=100 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update hpbhcov set fr=5,total2=100 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
-      const { rows } = await db.query(getAllQ,['GS']);
+      const { rows } = await db.query(getAllQ,['FR']);
      
       return rows;
     } catch (error) {
