@@ -149,7 +149,7 @@ const getHpbhDrilling = async()=>{
 
   
   const sumHpbh = async()=>{
-    const getAllQ = `update hpbhcov set total=(gs+tos+drilling+pt+pi+platforming+cr+fr),total2=(gs+tos+drilling+pt+pi+platforming+cr+fr))`
+    const getAllQ = `update hpbhcov set total=(gs+tos+drilling+pt+pi+platforming+cr+fr)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
