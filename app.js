@@ -18,6 +18,8 @@ const Activity = require('./src/controllers/activitiesform')
 const Performance = require('./src/controllers/performance')
 const Monitors = require('./src/controllers/monitors')
 const MonitorsRep = require('./src/controllers/monitorsReport')
+const Update = require('./src/controllers/updates')
+
 
 
 
@@ -91,6 +93,8 @@ app.use('/api/v1/analytics', Analytics);
 app.use('/api/v1/reports', Reports);
 app.use('/api/v1/monitorsreports', MonitorsRep);
 app.use('/api/v1/performance', Performance);
+app.use('/api/v1/update', Update);
+
 
 
 app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
