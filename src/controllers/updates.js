@@ -131,7 +131,7 @@ const getHpbhDrilling = async()=>{
   }
 
   const getHpbhPlatforming2 = async()=>{
-    const getAllQ = `update hpbhcov set drilling,platforming=15,pi=20,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update hpbhcov set drilling=25,platforming=15,pi=20,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Platforming2']);
