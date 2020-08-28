@@ -61,7 +61,7 @@ const getHpbhGs = async()=>{
 }
 
 const getHpbhDrilling = async()=>{
-  const getAllQ = `update hpbhcov set drilling=25 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+  const getAllQ = `update hpbhcov set gs=15,tos=10,drilling=25 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['Drilling']);
