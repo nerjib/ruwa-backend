@@ -130,6 +130,23 @@ const getHpbhDrilling = async()=>{
   
   }
 
+  const getHpbhPlatforming2 = async()=>{
+    const getAllQ = `update hpbhcov set platforming=15,pi=20 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['Platforming2']);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+  
+  }
+
   const getHpbhCr = async()=>{
     const getAllQ = `update hpbhcov set cr=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
