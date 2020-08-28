@@ -219,7 +219,21 @@ const sumHpbhstages=async()=>{
 }
 
 
+const getFR = async()=>{
+  const getAllQ = `update hpbhcov set total2=100 where fr=$1`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,[5]);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
 
+  }  
+}
 
 
 
@@ -238,6 +252,7 @@ router.get('/hpbh', async (req, res) => {
     let kk7= await getHpbhCr()
     let kk9 = await sumHpbh()
     let kk8= await getHpbhFr()
+    await getFR()
    res.status(201).json(kk8)
 })
 
