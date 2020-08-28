@@ -234,6 +234,7 @@ router.get('/hpbh', async (req, res) => {
     let kk4= await getHpbhPt() 
     let kk5= await getHpbhPi() 
     let kk6= await getHpbhPlatforming()
+    let kk10= await getHpbhPlatforming2()
     let kk7= await getHpbhCr()
     let kk9 = await sumHpbh()
     let kk8= await getHpbhFr()
