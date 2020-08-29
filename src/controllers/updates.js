@@ -450,7 +450,7 @@ const sumVIP = async()=>{
 
 
 const getVIPFr = async()=>{
-  const getAllQ = `update vipcov set fr=5,total2=100 from reports where vipcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+  const getAllQ = `update vipcov set fr=5,total2=100 from reports where vipcov.pid=reports.pid and vipcov.pid in (select pid from reports where pstatus=$1)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['FR']);
@@ -485,7 +485,7 @@ try {
 
 
 const getUpdatedVipFR = async()=>{
-const getAllQ = `update vipcov set fr=5 where pid=(select id from projects where projects.pstatus=$1 and projects.id=hpbhcov.pid)`
+const getAllQ = `update vipcov set fr=5 where pid=(select id from projects where projects.pstatus=$1 and projects.id=vipcov.pid)`
 try {
   // const { rows } = qr.query(getAllQ);
   const { rows } = await db.query(getAllQ,['FR']);
@@ -528,6 +528,7 @@ router.get('/vip', async (req, res) => {
     let kk6= await getVipFinishing()
     let kk10= await getVipArt()
     let kk7= await getVipSignBoard()
+    let kk7= await getVipFR()
     let kk9 = await getFRVip()
     let kk8= await getVIPFr()
     let kk11= await getUpdatedVipFR()
