@@ -539,4 +539,291 @@ router.get('/vip', async (req, res) => {
    res.status(201).json(kk4)
 })
 
+
+
+
+
+const getSolarPid = async()=>{
+  const getAllQ = `insert into solarcov(pid) select id from projects where title=$1 and id not in (select pid from solarcov)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['Motorized Solar Borehole']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+
+const getSolarTos = async()=>{
+  const getAllQ = `update solarcov set tos=10 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['TOS']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarGS = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['GS']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarDrilling = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15,drilling=20 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['Drilling']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarPT = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15,drilling=20,pt=5 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['PT']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarFS = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15,fs=10 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['FS']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarES = async()=>{
+  const getAllQ = `update solarcov set tos=10,fs=10,es=15 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['ES']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarISP = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15,fs=10,es=15,isp=5 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['ISP']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarReticulation = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15,drilling=20,pt=5,fs=10,reticulation=10 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['Reticulation']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarCr = async()=>{
+  const getAllQ = `update solarcov set tos=10,gs=15,drilling=20,pt=5,fs=10,cr=5 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['CR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const getSolarFR = async()=>{
+  const getAllQ = `update solarcov set fr=5,total2=100 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['FR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+
+const sumSolar = async()=>{
+  const getAllQ = `update solarcov set total=(tos+gs+drilling+pt+fs+es+isp+reticulation+cr+fr), total2=(tos+gs+drilling+pt+fs+es+isp+reticulation+cr+fr)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+
+
+const getSolarFr = async()=>{
+  const getAllQ = `update solarcov set fr=5 from reports where solarcov.pid=reports.pid and solarcov.pid in (select pid from reports where pstatus=$1)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['FR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }  
+}
+
+
+
+const getUpdatedSolarFR = async()=>{
+const getAllQ = `update solarcov set fr=5 where pid=(select id from projects where projects.pstatus=$1 and projects.id=solarcov.pid)`
+try {
+  // const { rows } = qr.query(getAllQ);
+  const { rows } = await db.query(getAllQ,['FR']);
+ 
+  return rows;
+} catch (error) {
+  if (error.routine === '_bt_check_unique') {
+    return ({ message: 'User with that EMAIL already exist' });
+  }
+  return (`${error} jsh`);
+
+}  
+}
+
+const getFRSolar = async()=>{
+const getAllQ = `update solarcov set total2=100 where fr=$1`
+try {
+  // const { rows } = qr.query(getAllQ);
+  const { rows } = await db.query(getAllQ,[5]);
+ 
+  return rows;
+} catch (error) {
+  if (error.routine === '_bt_check_unique') {
+    return ({ message: 'User with that EMAIL already exist' });
+  }
+  return (`${error} jsh`);
+
+}  
+}
+
+
+
+router.get('/solar', async (req, res) => {
+  
+  let kk= await getSolarPid() 
+    let kk1= await getSolarTos()
+    let kk2= await getSolarGS() 
+    let kk3= await getSolarDrilling() 
+    let kk5= await getSolarPT() 
+    let kk6= await getSolarFS()
+    let kk10= await getSolarES()
+    let kk7= await getSolarISP()
+    let kk8= await getSolarReticulation()
+    let kk12= await getSolarCr()
+    let kk13= await getSolarFR()
+    let kk4= await sumSolar()
+    let kk15= await getSolarFr()
+    let kk11= await getUpdatedSolarFR()
+    let kk9 = await getFRSolar()
+
+    //let kk13= await getVipFR()
+
+   res.status(201).json(kk4)
+})
+
 module.exports = router;
