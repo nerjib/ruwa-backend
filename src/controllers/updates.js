@@ -277,7 +277,7 @@ router.get('/hpbh', async (req, res) => {
 
 
 const getVipPid = async()=>{
-  const getAllQ = `insert into vipcov(pid) select id from projects where title=$1 and id not in (select pid from hpbhcov)`
+  const getAllQ = `insert into vipcov(pid) select id from projects where title=$1 and id not in (select pid from vipcov)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['Sanitation']);
