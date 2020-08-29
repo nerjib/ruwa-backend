@@ -219,6 +219,22 @@ const sumHpbhstages=async()=>{
 }
 
 
+const getUpdatedFR = async()=>{
+  const getAllQ = `update hpbhcov set fr=5 where pid=(select id from projects where projects.pstatus=$1 projects.id=hpbhcov.pid)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['FR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }  
+}
+
 const getFR = async()=>{
   const getAllQ = `update hpbhcov set total2=100 where fr=$1`
   try {
@@ -252,6 +268,7 @@ router.get('/hpbh', async (req, res) => {
     let kk7= await getHpbhCr()
     let kk9 = await sumHpbh()
     let kk8= await getHpbhFr()
+    let kk12= await getUpdatedFR()
     let kk11=await getFR()
    res.status(201).json(kk11)
 })
