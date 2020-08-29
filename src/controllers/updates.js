@@ -270,7 +270,7 @@ router.get('/hpbh', async (req, res) => {
     let kk8= await getHpbhFr()
     let kk12= await getUpdatedFR()
     let kk11=await getFR()
-   res.status(201).json(kk11)
+   res.status(201).json(kk12)
 })
 
 module.exports = router;
