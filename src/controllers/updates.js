@@ -252,8 +252,8 @@ router.get('/hpbh', async (req, res) => {
     let kk7= await getHpbhCr()
     let kk9 = await sumHpbh()
     let kk8= await getHpbhFr()
-    await getFR()
-   res.status(201).json(kk8)
+    let kk11=await getFR()
+   res.status(201).json(kk11)
 })
 
 module.exports = router;
