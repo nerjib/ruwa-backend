@@ -44,7 +44,7 @@ const getHpbhTos = async()=>{
 }
 
 const getHpbhGs = async()=>{
-  const getAllQ = `update hpbhcov set gs=15 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+  const getAllQ = `update hpbhcov set tos=10,gs=15 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['GS']);
@@ -78,7 +78,7 @@ const getHpbhDrilling = async()=>{
 }
 
   const getHpbhPt= async()=>{
-    const getAllQ = `update hpbhcov set drilling=25,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update hpbhcov set tos=10,gs=15,drilling=25,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['PT']);
@@ -96,7 +96,7 @@ const getHpbhDrilling = async()=>{
   }
 
   const getHpbhPi = async()=>{
-    const getAllQ = `update hpbhcov set drilling=25,pt=5,pi=20 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update hpbhcov set tos=10,gs=15,drilling=25,pt=5,pi=20 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['PI']);
@@ -114,7 +114,7 @@ const getHpbhDrilling = async()=>{
   
 
   const getHpbhPlatforming = async()=>{
-    const getAllQ = `update hpbhcov set drilling=25,platforming=15,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update hpbhcov set tos=10,gs=15,drilling=25,platforming=15,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Platforming']);
@@ -131,7 +131,7 @@ const getHpbhDrilling = async()=>{
   }
 
   const getHpbhPlatforming2 = async()=>{
-    const getAllQ = `update hpbhcov set drilling=25,platforming=15,pi=20,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
+    const getAllQ = `update hpbhcov set gs=15,tos=10,drilling=25,platforming=15,pi=20,pt=5 from reports where hpbhcov.pid=reports.pid and hpbhcov.pid in (select pid from reports where pstatus=$1)`
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Platforming2']);
