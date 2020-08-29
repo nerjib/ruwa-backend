@@ -412,11 +412,12 @@ const getVipSignBoard = async()=>{
 
 }
 
+/*
 const getVipFR = async()=>{
   const getAllQ = `update vipcov set tos=10, fr=5 from reports where vipcov.pid=reports.pid and vipcov.pid in (select pid from reports where pstatus=$1)`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['TOS']);
+    const { rows } = await db.query(getAllQ,['FR']);
    
     return rows;
   } catch (error) {
@@ -428,7 +429,7 @@ const getVipFR = async()=>{
   }
 
 }
-
+*/
 
 const sumVIP = async()=>{
   const getAllQ = `update vipcov set total=(tos+escavation+subs+supers+finishinig+artwork+cr+fr), total2=(tos+escavation+subs+supers+finishinig+artwork+cr+fr)`
@@ -450,7 +451,7 @@ const sumVIP = async()=>{
 
 
 const getVIPFr = async()=>{
-  const getAllQ = `update vipcov set fr=5,total2=100 from reports where vipcov.pid=reports.pid and vipcov.pid in (select pid from reports where pstatus=$1)`
+  const getAllQ = `update vipcov set fr=5 from reports where vipcov.pid=reports.pid and vipcov.pid in (select pid from reports where pstatus=$1)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['FR']);
@@ -528,13 +529,14 @@ router.get('/vip', async (req, res) => {
     let kk6= await getVipFinishing()
     let kk10= await getVipArt()
     let kk7= await getVipSignBoard()
-    let kk13= await getVipFR()
-    let kk9 = await getFRVip()
     let kk8= await getVIPFr()
-    let kk11= await getUpdatedVipFR()
     let kk4= await sumVIP()
+    let kk11= await getUpdatedVipFR()
+    let kk9 = await getFRVip()
 
-   res.status(201).json(kk11)
+    //let kk13= await getVipFR()
+
+   res.status(201).json(kk4)
 })
 
 module.exports = router;
