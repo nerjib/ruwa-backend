@@ -519,7 +519,7 @@ try {
 
 
 router.get('/vip', async (req, res) => {
-  /*  
+  
   let kk= await getVipPid() 
     let kk1= await getVipTos()
     let kk2= await getVipEscavation() 
@@ -533,7 +533,7 @@ router.get('/vip', async (req, res) => {
     let kk8= await getVIPFr()
     let kk11= await getUpdatedVipFR()
     let kk4= await sumVIP()
-*/
+
    res.status(201).json(kk11)
 })
 
