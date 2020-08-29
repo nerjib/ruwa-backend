@@ -220,7 +220,7 @@ const sumHpbhstages=async()=>{
 
 
 const getUpdatedFR = async()=>{
-  const getAllQ = `update hpbhcov set fr=5 where pid=(select id from projects where projects.pstatus=$1 projects.id=hpbhcov.pid)`
+  const getAllQ = `update hpbhcov set fr=5 where pid=(select id from projects where projects.pstatus=$1 and projects.id=hpbhcov.pid)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['FR']);
