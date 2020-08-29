@@ -432,7 +432,7 @@ const getVipFR = async()=>{
 */
 
 const sumVIP = async()=>{
-  const getAllQ = `update vipcov set total=(tos+escavation+subs+supers+finishinig+artwork+cr+fr), total2=(tos+escavation+subs+supers+finishinig+artwork+cr+fr)`
+  const getAllQ = `update vipcov set total=(tos+escavation+subs+supers+finishing+artwork+cr+fr), total2=(tos+escavation+subs+supers+finishing+artwork+cr+fr)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
@@ -468,7 +468,7 @@ const getVIPFr = async()=>{
 
 
 const sumVipstages=async()=>{
-const getAllQ = `update vipcov set total=(tos+escavation+subs+supers+finishinig+artwork+cr+fr) where pid is not null`
+const getAllQ = `update vipcov set total=(tos+escavation+subs+supers+finishing+artwork+cr+fr) where pid is not null`
 try {
   // const { rows } = qr.query(getAllQ);
   const { rows } = await db.query(getAllQ);
