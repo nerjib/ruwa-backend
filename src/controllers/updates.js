@@ -827,11 +827,11 @@ router.get('/solar', async (req, res) => {
 })
 
 
-router.get('/allsol', async (req, res) => {
+router.get('/allsolar', async (req, res) => {
   const getAllQ = 'SELECT * from solarcov';
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,[req.params.phase]);
+    const { rows } = await db.query(getAllQ);
     return res.status(201).send(rows);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
@@ -841,51 +841,33 @@ router.get('/allsol', async (req, res) => {
   }
 });
 
-router.get('/allsolar', async (req, res) => {
-  const getAllQ = `select * from solarcov`
-  try {
-    // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ);
-   
-    return rows;
-  } catch (error) {
-    if (error.routine === '_bt_check_unique') {
-      return ({ message: 'User with that EMAIL already exist' });
-    }
-    return (`${error} jsh`);
-
-  }
-})
-router.get('/allvip', async (req, res) => {
-  const getAllQ = `select * from vipcov`
-  try {
-    // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ);
-   
-    return rows;
-  } catch (error) {
-    if (error.routine === '_bt_check_unique') {
-      return ({ message: 'User with that EMAIL already exist' });
-    }
-    return (`${error} jsh`);
-
-  }
-})
-
 router.get('/allhpbh', async (req, res) => {
-  const getAllQ = `select * from hpbhcov`
+  const getAllQ = 'SELECT * from hpbhcov';
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
-   
-    return rows;
+    return res.status(201).send(rows);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
-      return ({ message: 'User with that EMAIL already exist' });
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
     }
-    return (`${error} jsh`);
-
+    return res.status(400).send(`${error} jsh`);
   }
-})
+});
+
+router.get('/allvip', async (req, res) => {
+  const getAllQ = 'SELECT * from vipcov';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
+
 
 module.exports = router;
