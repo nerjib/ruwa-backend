@@ -831,7 +831,7 @@ router.get('/allsolar', async (req, res) => {
   const getAllQ = `select * from solarcov`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['CR']);
+    const { rows } = await db.query(getAllQ);
    
     return rows;
   } catch (error) {
@@ -846,7 +846,7 @@ router.get('/allvip', async (req, res) => {
   const getAllQ = `select * from vipcov`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['CR']);
+    const { rows } = await db.query(getAllQ);
    
     return rows;
   } catch (error) {
@@ -862,7 +862,7 @@ router.get('/allhpbh', async (req, res) => {
   const getAllQ = `select * from hpbhcov`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['CR']);
+    const { rows } = await db.query(getAllQ);
    
     return rows;
   } catch (error) {
