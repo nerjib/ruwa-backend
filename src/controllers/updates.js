@@ -826,4 +826,52 @@ router.get('/solar', async (req, res) => {
    res.status(201).json(kk4)
 })
 
+
+router.get('/allsolar', async (req, res) => {
+  const getAllQ = `select * from solarcov`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['CR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+})
+router.get('/allvip', async (req, res) => {
+  const getAllQ = `select * from vipcov`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['CR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+})
+
+router.get('/allhpbh', async (req, res) => {
+  const getAllQ = `select * from hpbhcov`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['CR']);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+})
+
 module.exports = router;
