@@ -867,7 +867,7 @@ router.get('/solar', async (req, res) => {
     let kk15= await getSolarFr()
     let kk11= await getUpdatedSolarFR()
     let kk9 = await getFRSolar()
-    let kk15 = await UpdateSolarProjects()
+    let kk16 = await UpdateSolarProjects()
     //let kk13= await getVipFR()
 
    res.status(201).json(kk4)
