@@ -534,7 +534,7 @@ try {
 }
 
 const UpdateVIPProjects = async()=>{
-  const getAllQ = `update projects set totalcov=hpbhcov.total2 from vipcov where vipcov.pid=projects.id`
+  const getAllQ = `update projects set totalcov=vipcov.total2 from vipcov where vipcov.pid=projects.id`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
