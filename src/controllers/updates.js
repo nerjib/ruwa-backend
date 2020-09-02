@@ -10,10 +10,10 @@ const db = require('../dbs/index');
 
 
 const getHpbhPid = async()=>{
-  const getAllQ = `insert into hpbhcov(pid) select id from projects where title=$1 and id not in (select pid from hpbhcov)`
+  const getAllQ = `insert into hpbhcov(pid) select id from projects where title=$1 OR title=$2 and id not in (select pid from hpbhcov)`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['Community Borehole']);
+    const { rows } = await db.query(getAllQ,['Community Borehole','Force Lift']);
    
     return rows;
   } catch (error) {
@@ -252,6 +252,21 @@ const getFR = async()=>{
 }
 
 
+const UpdateHPBHProjects = async()=>{
+  const getAllQ = `update hpbhcov set totalcov=hpbhcov.total2 from hpbhcov where hpbhcov.pid=projects.id`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }  
+}
 
 
 
@@ -270,6 +285,7 @@ router.get('/hpbh', async (req, res) => {
     let kk8= await getHpbhFr()
     let kk12= await getUpdatedFR()
     let kk11=await getFR()
+    let k15= await UpdateHPBHProjects()
    res.status(201).json(kk12)
 })
 
@@ -517,6 +533,22 @@ try {
 }  
 }
 
+const UpdateVIPProjects = async()=>{
+  const getAllQ = `update vipcov set totalcov=hpbhcov.total2 from vipcov where vipcov.pid=projects.id`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }  
+}
+
 
 
 router.get('/vip', async (req, res) => {
@@ -533,7 +565,7 @@ router.get('/vip', async (req, res) => {
     let kk4= await sumVIP()
     let kk11= await getUpdatedVipFR()
     let kk9 = await getFRVip()
-
+  let kk15 = await UpdateVIPProjects()
     //let kk13= await getVipFR()
 
    res.status(201).json(kk4)
@@ -557,7 +589,6 @@ const getSolarPid = async()=>{
     return (`${error} jsh`);
 
   }
-
 }
 
 
@@ -801,6 +832,22 @@ try {
 }  
 }
 
+const UpdateSolarProjects = async()=>{
+  const getAllQ = `update hpbhcov set totalcov=solarcov.total2 from solarcov where solarcov.pid=projects.id`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }  
+}
+
 
 
 router.get('/solar', async (req, res) => {
@@ -820,7 +867,7 @@ router.get('/solar', async (req, res) => {
     let kk15= await getSolarFr()
     let kk11= await getUpdatedSolarFR()
     let kk9 = await getFRSolar()
-
+    let kk15 = await UpdateSolarProjects()
     //let kk13= await getVipFR()
 
    res.status(201).json(kk4)
@@ -911,4 +958,21 @@ router.get('/allhpbh/:id', async (req, res) => {
     return res.status(400).send(`${error} jsh`);
   }
 });
+
+
+router.get('/updateallprojects', async (req, res) => {
+  const getAllQ = 'UPDATE projects set status=$1 where pstatus=$2';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,['completed','FR']);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
+
+
 module.exports = router;
