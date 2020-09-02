@@ -10,7 +10,7 @@ const db = require('../dbs/index');
 
 
 const getHpbhPid = async()=>{
-  const getAllQ = `insert into hpbhcov(pid) select id from projects where title=$1 OR title=$2 and id not in (select pid from hpbhcov)`
+  const getAllQ = `insert into hpbhcov(pid) select id from projects where (title=$1 OR title=$2) and id not in (select pid from hpbhcov)`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,['Community Borehole','Force Lift']);
@@ -828,7 +828,6 @@ try {
     return ({ message: 'User with that EMAIL already exist' });
   }
   return (`${error} jsh`);
-
 }  
 }
 
@@ -836,8 +835,7 @@ const UpdateSolarProjects = async()=>{
   const getAllQ = `update projects set totalcov=solarcov.total2 from solarcov where solarcov.pid=projects.id`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ);
-   
+    const { rows } = await db.query(getAllQ);   
     return rows;
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
@@ -869,7 +867,6 @@ router.get('/solar', async (req, res) => {
     let kk9 = await getFRSolar()
     let kk16 = await UpdateSolarProjects()
     //let kk13= await getVipFR()
-
    res.status(201).json(kk4)
 })
 
