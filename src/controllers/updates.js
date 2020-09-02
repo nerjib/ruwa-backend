@@ -253,7 +253,7 @@ const getFR = async()=>{
 
 
 const UpdateHPBHProjects = async()=>{
-  const getAllQ = `update hpbhcov set totalcov=hpbhcov.total2 from hpbhcov where hpbhcov.pid=projects.id`
+  const getAllQ = `update projects set totalcov=hpbhcov.total2 from hpbhcov where hpbhcov.pid=projects.id`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
@@ -534,7 +534,7 @@ try {
 }
 
 const UpdateVIPProjects = async()=>{
-  const getAllQ = `update vipcov set totalcov=hpbhcov.total2 from vipcov where vipcov.pid=projects.id`
+  const getAllQ = `update projects set totalcov=hpbhcov.total2 from vipcov where vipcov.pid=projects.id`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
@@ -833,7 +833,7 @@ try {
 }
 
 const UpdateSolarProjects = async()=>{
-  const getAllQ = `update hpbhcov set totalcov=solarcov.total2 from solarcov where solarcov.pid=projects.id`
+  const getAllQ = `update projects set totalcov=solarcov.total2 from solarcov where solarcov.pid=projects.id`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
