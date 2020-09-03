@@ -988,5 +988,33 @@ router.get('/updateallprojects', async (req, res) => {
   }
 });
 
+router.post('/updateReportStage/:id', async (req, res) => {
+  const getAllQ = 'UPDATE reports set pstatus=$1 where id=$2';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,[req.body.pstatus, req.params.id]);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
+
+router.post('/updatehpbhcov/:id', async (req, res) => {
+  const getAllQ = 'UPDATE hpbhcov set $1=$2 where pid = $3';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,[req.body.title,req.body.pstatus, req.params.id]);
+    return res.status(201).send(rows);
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return res.status(400).send({ message: 'User with that EMAIL already exist' });
+    }
+    return res.status(400).send(`${error} jsh`);
+  }
+});
+
 
 module.exports = router;
