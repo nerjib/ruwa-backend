@@ -72,10 +72,10 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('email/', async (req, res) => {
-  const getAllQ = 'SELECT * FROM users WHERE email like $1';
+  const getAllQ = `SELECT * FROM users WHERE email like admin%`;
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ, ['admin%']);
+    const { rows } = await db.query(getAllQ);
     return res.status(201).send(rows);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
