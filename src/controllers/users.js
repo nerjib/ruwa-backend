@@ -75,7 +75,7 @@ router.get('/email/:email', async (req, res) => {
   const getAllQ = `SELECT * FROM users where first_name::varchar LIKE $1`;
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['admin']);
+    const { rows } = await db.query(getAllQ,[req.params.email]);
     return res.status(201).send(rows);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
