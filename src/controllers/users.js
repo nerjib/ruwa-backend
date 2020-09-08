@@ -72,7 +72,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('email/', async (req, res) => {
-  const getAllQ = `SELECT * FROM users WHERE email like admin%`;
+  const getAllQ = `SELECT * FROM users first_name like ad%`;
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
