@@ -347,7 +347,7 @@ const getVipEscavation = async()=>{
   const getAllQ = `update vipcov set tos=10,escavation=15 from reports where vipcov.pid=reports.pid and vipcov.pid in (select pid from reports where pstatus=$1)`
   try {
     // const { rows } = qr.query(getAllQ);
-    const { rows } = await db.query(getAllQ,['Escavation']);
+    const { rows } = await db.query(getAllQ,['Excavation']);
    
     return rows;
   } catch (error) {
