@@ -133,7 +133,7 @@ router.get('/retention/:id', async(req, res) =>{
     return res.status(400).send(error);
   }
 });
-}
+
 router.get('/statesupervisors/donephases1/:id', async(req, res) =>{
   const project = 'SELECT * FROM projects WHERE state_id=$1  order by phase desc';
  // console.log(req.params.id);
