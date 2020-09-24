@@ -120,6 +120,20 @@ router.get('/localsupervisors/donephases1/:id', async(req, res) =>{
     }
   });
 }
+router.get('/retention/:id', async(req, res) =>{
+  const project = `SELECT projects.id,projects.state_id,projects.local_id,projects.lga,projects.status,projects.started,projects.title,projects.gps,projects.contractor_id,projects.lot,projects.ward,projects.community,projects.phase,contractors.company FROM projects left join contractors on projects.contractor_id=contractors.id WHERE (projects.state_id=$1 or projects.local_id=$1)  order by phase asc`;
+ // console.log(req.params.id);
+  try {
+ //   console.log('dd')
+    const { rows } = await db.query(project, [req.params.id]);
+   //alert(rows[0])        
+//   console.log('tt'+rows)     
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+});
+}
 router.get('/statesupervisors/donephases1/:id', async(req, res) =>{
   const project = 'SELECT * FROM projects WHERE state_id=$1  order by phase desc';
  // console.log(req.params.id);
