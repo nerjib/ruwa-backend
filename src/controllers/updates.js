@@ -8,6 +8,55 @@ const db = require('../dbs/index');
 
 
 
+const updatesanmonitoring = async()=>{
+  const getAllQ = `update projects set valuation='done' where id in (select pid from sanitationeval)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+const updatewatermonitoring = async()=>{
+  const getAllQ = `update projects set valuation='done' where id in (select pid from watereval)`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
+const updatereportdate = async()=>{
+  const getAllQ = `update projects set lastdate= date from reports  where projects.id=reports.pid`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
 
 const getHpbhPid = async()=>{
   const getAllQ = `insert into hpbhcov(pid) select id from projects where (title=$1 OR title=$2) and id not in (select pid from hpbhcov)`
@@ -287,7 +336,9 @@ const UpdateHPBHProjects = async()=>{
 
 
 router.get('/hpbh', async (req, res) => {
-    
+    await updatewatermonitoring()
+    await updatesanmonitoring()
+  await updatereportdate()
   let kk= await getHpbhPid() 
     let kk1= await getHpbhTos() 
     let kk2= await getHpbhGs() 
