@@ -42,7 +42,8 @@ const updatewatermonitoring = async()=>{
 }
 
 const updatereportdate = async()=>{
-  const getAllQ = `update projects set lastdate= date from reports  where projects.id=reports.pid`
+  const getAllQ = `update projects t1 set lastdate= date2 from ( select pid,date as date2 from reports order by id desc) t2 
+    where t1.id=t2.pid`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ);
