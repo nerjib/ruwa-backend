@@ -330,9 +330,6 @@ router.get('/', async (req, res) => {
   const AbandonedVIP = await getAbandonedVIPStatus()
 
 
-
-
-
      res.status(201).json({
          allhpbh: HPBH[0].count,
          allsmbh: SMBH[0].count,
@@ -359,6 +356,233 @@ router.get('/', async (req, res) => {
 
 });
 
+
+const getAbandonedVIPbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['abandoned','Sanitation', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+const getAbandonedHPBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['abandoned','Community Borehole', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+const getAbandonedSMBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['abandoned','Motorized Solar Borehole', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+const getAbandonedFLBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['abandoned','Force Lift', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+const getCompletedVIPbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['completed','Sanitation', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+const getCompletedHPBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['completed','Community Borehole', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+const getCompletedSMBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['completed','Motorized Solar Borehole', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+const getCompletedFLBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['completed','Force Lift', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+
+
+const getOngoingVIPbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['ongoing','Sanitation', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+const getOngoingHPBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['ongoing','Community Borehole', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+const getOngoingSMBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['ongoing','Motorized Solar Borehole', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+const getOngoingFLBHbyphase = async (phase) => {
+    const getVIP = `select count (*) from  projects where status=$1 and title=$2 and phase=$3`
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getVIP,['ongoing','Force Lift', phase]);
+     
+      return rows;
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return ({ message: 'User with that EMAIL already exist' });
+      }
+      return (`${error} jsh`);
+  
+    }
+}
+
+
+router.get('/byphase/:phase', async (req, res) => {
+    const FLBHComphase = await getCompletedFLBHbyphase(req.params.phase)
+    const HPBHComphase = await getCompletedHPBHbyphase(req.params.phase)
+    const SMBHComPhase = await getCompletedSMBHbyphase(req.params.phase)
+    const VIPComPhase = await getCompVIPStatus(req.params.phase)
+    const HPBHOngoingPhase = await getOngoingHPBHStatus(req.params.phase)
+    const FLBHOngoingPhase = await getOngoingFLBHbyphase(req.params.phase)
+    const VIPOngoingPhase = await getOngoingVIPbyphase(req.params.phase)
+    const SMBHOngoingPhase = await getOngoingSMBHbyphase(req.params.phase)
+
+    const HPBHAbandonedPhase = await getAbandonedHPBHbyphase(req.params.phase)
+      const SMBHAbandonedPhase = await getAbandonedSMBHbyphase(req.params.phase)
+    const FLBHAbandonedPhase = await getAbandonedFLBHbyphase(req.params.phase)
+  const VIPAbandonedPhase = await getAbandonedVIPbyphase(req.params.phase)
+  
+  
+       res.status(201).json({
+           comhpbhphase: HPBHComphase[0].count,
+           comsmbhphase: SMBHComPhase[0].count,
+           comflbhphase: FLBHComphase[0].count,
+           comvipphase: VIPComPhase[0].count,
+           ongoinghpbhphase: HPBHOngoingPhase[0].count,
+           ongoingflbhphase: FLBHOngoingPhase[0].count,
+           ongoingvipphase: VIPOngoingPhase[0].count,
+           ongoingsmbhphase: SMBHOngoingPhase[0].count,
+           abandonedhpbhphase: HPBHAbandonedPhase[0].count,
+           abandonedflbhphase: FLBHAbandonedPhase[0].count,
+           abandonedsmbhphase: SMBHAbandonedPhase[0].count,
+           abandonedvipphase: VIPAbandonedPhase[0].count,
+             
+       })
+  
+  });
+  
+  
 
 module.exports = router;
 
