@@ -13,6 +13,8 @@ const Report = require('./src/controllers/reportform')
 const multer = require('multer');
 const cloudinary = require('cloudinary');
 const Analytics = require('./src/controllers/analytics');
+const Analytics2 = require('./src/controllers/analytics2');
+
 const Reports = require('./src/controllers/reports');
 const Activity = require('./src/controllers/activitiesform')
 const Performance = require('./src/controllers/performance')
@@ -90,6 +92,7 @@ app.use('/api/v1/projects', Projects);
 app.use('/api/v1/contractors', Contractors);
 app.use('/api/v1/localreports', LocalReports);
 app.use('/api/v1/analytics', Analytics);
+app.use('/api/v2/analytics', Analytics2);
 app.use('/api/v1/reports', Reports);
 app.use('/api/v1/monitorsreports', MonitorsRep);
 app.use('/api/v1/performance', Performance);
