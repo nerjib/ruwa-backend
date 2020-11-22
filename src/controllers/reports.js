@@ -374,7 +374,7 @@ router.put('/:id', async (req, res) => {
   req.body.imgurl1,
   req.body.imgurl2,
   req.body.cordinate,
-  req.body.time,
+  req.body.gentime,
   moment(new Date()),
     ];
   try {
