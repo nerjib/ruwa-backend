@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
   });  
 
   router.get('/watereval/:id', async (req, res) => {
-    const getAllQ = 'SELECT * FROM watereval where pid=$1';
+    const getAllQ = 'SELECT * FROM watereval where pid=$1 order by id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [req.params.id]);
@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
   });  
 
   router.get('/watereval/reports/:id', async (req, res) => {
-    const getAllQ = 'SELECT * FROM watereval where id=$1';
+    const getAllQ = 'SELECT * FROM watereval where id=$1 order by id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [req.params.id]);
@@ -98,7 +98,7 @@ router.post('/', async (req, res) => {
 
 
   router.get('/sanitationeval/:id', async (req, res) => {
-    const getAllQ = 'SELECT * FROM sanitationeval where pid=$1';
+    const getAllQ = 'SELECT * FROM sanitationeval where pid=$1 order by id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [req.params.id]);
@@ -112,7 +112,7 @@ router.post('/', async (req, res) => {
   });  
 
   router.get('/sanitationeval/reports/:id', async (req, res) => {
-    const getAllQ = 'SELECT * FROM sanitationeval where id=$1';
+    const getAllQ = 'SELECT * FROM sanitationeval where id=$1 order by id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ, [req.params.id]);

@@ -149,3 +149,19 @@ create table reportactivities(
                 imgurl2 varchar,imgurl3 varchar,imgurl4 varchar,
                     time timestamp
     )
+
+    create table followupreports(
+        id serial,
+        pid integer,
+        sid integer,
+        functionality text,
+        problem text,
+        problemduration text,
+        remark text,
+        cause text,
+        imgurl1 varchar,
+        imgurl2 varchar,
+        cordinate varchar,
+        gentime timestamp,
+        time timestamp
+    )

@@ -149,8 +149,8 @@ router.get('/statesupervisors/donephases1/:id', async(req, res) =>{
 });
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  projects (title,state_id, local_id,location,lga,status,wardheadphone,gps,started,lot,type,phase,contractor_id,ward,community,facility)
-  VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING *`;
+  projects (title,state_id, local_id,location,lga,status,wardheadphone,gps,started,lot,type,phase,contractor_id,ward,community,facility,done)
+  VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) RETURNING *`;
 
 const values = [
   req.body.title,
@@ -168,7 +168,8 @@ req.body.phase,
 req.body.contractor_id,
 req.body.ward,
 req.body.community,
-req.body.facility
+req.body.facility,
+0
 ];
 try {
 const { rows } = await db.query(createUser, values);

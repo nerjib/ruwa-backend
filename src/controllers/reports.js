@@ -17,6 +17,8 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+
 router.get('/incomplete', async (req, res) => {
   const getAllQ = 'SELECT * FROM reports order by id asc';
   try {
@@ -353,6 +355,52 @@ router.put('/:id', async (req, res) => {
   return res.status(400).send(error);
   }
   
+  });
+
+
+  router.post('/followupreports', async (req, res) => {
+    const createUser = `INSERT INTO
+    followupreports(pid, sid, functionality,problem,problemduration,remark,cause,imgurl1,imgurl2,cordinate,gentime,time)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12) RETURNING *`;
+  console.log(req.body)
+  const values = [
+  req.body.pid,
+  req.body.mid,
+  req.body.functionality,
+  req.body.problem,
+  req.body.problemduration,
+  req.body.remark,
+  req.body.cause,
+  req.body.imgurl1,
+  req.body.imgurl2,
+  req.body.cordinate,
+  req.body.time,
+  moment(new Date()),
+    ];
+  try {
+  const { rows } = await db.query(createUser, values);
+  // console.log(rows);
+  
+  return res.status(201).send(rows);
+  } catch (error) {
+  return res.status(400).send(error);
+  }
+  
+  });
+
+
+  router.get('/followupreports', async (req, res) => {
+    const getAllQ = 'SELECT * FROM followupreports  order by id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, ['1']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
   });
 
   router.get('/submitted/weekly', async (req, res) => {
