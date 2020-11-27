@@ -42,10 +42,11 @@ router.post('/', async (req, res) => {
   });  
 
   router.put('/requestrespond/', async (req, res) => {
-    const createUser = `UPDATE changeoflocation set changestatus=$1  where id=$2 RETURNING *`;
+    const createUser = `UPDATE changeoflocation set changestatus=$1, approvedtime=$2 where pid=$3 RETURNING *`;
   
   const values = [
   req.body.status,
+  moment(new Date()),
   req.body.pid];
   try {
   const { rows } = await db.query(createUser, values);
