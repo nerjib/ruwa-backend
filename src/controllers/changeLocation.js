@@ -6,7 +6,7 @@ const db = require('../dbs/index');
 router.post('/', async (req, res) => {
     const createUser = `INSERT INTO
     changeoflocation(pid, sid, newcommunity, newward, reason,changestatus, gentime)
-    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+    VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING *`;
   //console.log(req.body)
   const values = [
   req.body.pid,
