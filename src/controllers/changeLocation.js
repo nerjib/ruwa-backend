@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
   });  
 
   router.get('/requestbydept', async (req, res) => {
-    const getAllQ = 'SELECT * FROM changeoflocation left join projects on changeoflocation.pid=projects.id where changeoflocation.changestatus=$1 order by id desc';
+    const getAllQ = 'SELECT * FROM changeoflocation left join projects on changeoflocation.pid=projects.id where changeoflocation.changestatus=$1 order by changeoflocation.id asc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,['Pending']);
