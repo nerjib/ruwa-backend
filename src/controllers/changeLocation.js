@@ -41,12 +41,12 @@ router.post('/', async (req, res) => {
     }
   });  
 
-  router.put('/requestrespond/:id', async (req, res) => {
+  router.put('/requestrespond/', async (req, res) => {
     const createUser = `UPDATE changeoflocation set changestatus=$1  where id=$2 RETURNING *`;
   
   const values = [
   req.body.status,
-  req.params.id];
+  req.body.pid];
   try {
   const { rows } = await db.query(createUser, values);
   // console.log(rows);
