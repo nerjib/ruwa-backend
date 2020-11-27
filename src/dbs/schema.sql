@@ -165,3 +165,15 @@ create table reportactivities(
         gentime timestamp,
         time timestamp
     )
+
+
+        create table changeoflocation(
+        id serial,
+        pid integer,
+        sid integer,
+        newcommunity text,
+        ward text,
+        reason text,
+        gentime timestamp
+        
+    )

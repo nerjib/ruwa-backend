@@ -21,6 +21,8 @@ const Performance = require('./src/controllers/performance')
 const Monitors = require('./src/controllers/monitors')
 const MonitorsRep = require('./src/controllers/monitorsReport')
 const Update = require('./src/controllers/updates')
+const ChangeOfLocation = require('./src/controllers/changeLocation')
+
 
 
 
@@ -97,6 +99,8 @@ app.use('/api/v1/reports', Reports);
 app.use('/api/v1/monitorsreports', MonitorsRep);
 app.use('/api/v1/performance', Performance);
 app.use('/api/v1/update', Update);
+app.use('/api/v1/changeoflocation', ChangeOfLocation);
+
 
 
 
