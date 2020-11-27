@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
   });  
 
   router.get('/myrequest/:id', async (req, res) => {
-    const getAllQ = 'SELECT * FROM changeoflocation where sid=$1';
+    const getAllQ = 'SELECT * FROM changeoflocation where sid=$1 order by id desc';
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,[req.params.id]);
