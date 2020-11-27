@@ -55,6 +55,21 @@ router.post('/', async (req, res) => {
     }
   });  
 
+  router.get('/requestbydept', async (req, res) => {
+    const getAllQ = 'SELECT * FROM changeoflocation left join projects on changeoflocation.pid=projects.id where changeoflocation.changestatus=$1 order by id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,['Pending']);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });  
+
+
   router.put('/requestrespond/', async (req, res) => {
     const createUser = `UPDATE changeoflocation set changestatus=$1, approvedtime=$2 where pid=$3 RETURNING *`;
   
