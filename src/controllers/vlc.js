@@ -106,7 +106,7 @@ const updateprojectfunc = async(e,pid)=>{
     }
   }); 
 
-  router.get('/followup/siglereport/:id', async (req, res) => {
+  router.get('/followup/getreport/:id', async (req, res) => {
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
     followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
