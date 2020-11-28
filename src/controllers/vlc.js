@@ -54,7 +54,7 @@ const updateprojectfunc = async(e,pid)=>{
   
   router.get('/', async (req, res) => {
     const getAllQ = `SELECT * FROM followupreports left join projects on projects.id = followupreports.pid
-     where followupreports.functionality='no' and projects.functionality='no'`;
+     where followupreports.functionality='no' and projects.functionality='no' order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
