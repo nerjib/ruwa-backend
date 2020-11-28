@@ -412,7 +412,7 @@ const updateprojectfunc = async(e,pid)=>{
     const getAllQ = 'SELECT * FROM followupreports left join projects on followupreports.pid=projects.id  order by followupreports.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
-      const { rows } = await db.query(getAllQ, ['1']);
+      const { rows } = await db.query(getAllQ);
       return res.status(201).send(rows);
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
