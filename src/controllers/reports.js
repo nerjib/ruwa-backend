@@ -358,7 +358,26 @@ router.put('/:id', async (req, res) => {
   });
 
 
+const updateprojectfunc = async(e,pid)=>{
+  const getAllQ = `update projects set functiionality=$1 where id=#2`
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,[e,pid]);
+   
+    return rows;
+  } catch (error) {
+    if (error.routine === '_bt_check_unique') {
+      return ({ message: 'User with that EMAIL already exist' });
+    }
+    return (`${error} jsh`);
+
+  }
+
+}
+
   router.post('/followupreports', async (req, res) => {
+    await updateprojectfunc(req.body.functionality,req.body.pid)
+
     const createUser = `INSERT INTO
     followupreports(pid, sid, functionality,problem,problemduration,remark,cause,imgurl1,imgurl2,cordinate,gentime,time)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12) RETURNING *`;
