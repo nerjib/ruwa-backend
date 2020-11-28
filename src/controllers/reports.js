@@ -410,7 +410,7 @@ const updateprojectfunc = async(e,pid)=>{
 
   router.get('/followupreports', async (req, res) => {
     const getAllQ = `SELECT * FROM followupreports left join projects on projects.id = followupreports.pid
-    where followupreports.functionality='no' and projects.functionality='no' order by followupreports.id desc`;
+     where followupreports.functionality='no' and projects.functionality='no' order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
@@ -421,8 +421,8 @@ const updateprojectfunc = async(e,pid)=>{
       }
       return res.status(400).send(`${error} jsh`);
     }
-  });
-
+  })
+  
   router.get('/submitted/weekly', async (req, res) => {
     const getAllQ = 'SELECT * FROM weeklyreports where complete=$1 order by id desc';
     try {
