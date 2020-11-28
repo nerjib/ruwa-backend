@@ -70,7 +70,7 @@ const updateprojectfunc = async(e,pid)=>{
 
   router.get('/followup', async (req, res) => {
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
-    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.coordinate,followupreports.time,followupreports.gentime,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
     projects.lga,projects.ward,projects.community,projects.title,projects.id
      FROM followupreports left join projects on projects.id = followupreports.pid
@@ -89,7 +89,7 @@ const updateprojectfunc = async(e,pid)=>{
 
   router.get('/followup/byprojects/:id', async (req, res) => {
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
-    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.coordinate,followupreports.time,followupreports.gentime,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
     projects.lga,projects.ward,projects.community,projects.title,projects.id
      FROM followupreports left join projects on projects.id = followupreports.pid where followupreports.pid=$1
@@ -108,7 +108,7 @@ const updateprojectfunc = async(e,pid)=>{
 
   router.get('/followup/siglereport/:id', async (req, res) => {
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
-    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.coordinate,followupreports.time,followupreports.gentime,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
     projects.lga,projects.ward,projects.community,projects.title,projects.id
      FROM followupreports left join projects on projects.id = followupreports.pid where followupreports.id=$1
