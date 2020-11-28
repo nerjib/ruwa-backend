@@ -359,7 +359,7 @@ router.put('/:id', async (req, res) => {
 
 
 const updateprojectfunc = async(e,pid)=>{
-  const getAllQ = `update projects set functiionality=$1 where id=$2`
+  const getAllQ = `update projects set functionality=$1 where id=$2`
   try {
     // const { rows } = qr.query(getAllQ);
     const { rows } = await db.query(getAllQ,[e,pid]);
