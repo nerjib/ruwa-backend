@@ -110,8 +110,9 @@ const updateprojectfunc = async(e,pid)=>{
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
     followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
-    projects.lga,projects.ward,projects.community,projects.title,projects.id
-     FROM followupreports left join projects on projects.id = followupreports.pid where followupreports.id=$1
+    projects.lga,projects.ward,projects.community,projects.title,projects.id,
+    users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
+     FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id where followupreports.id=$1
       order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
