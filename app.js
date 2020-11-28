@@ -23,6 +23,7 @@ const MonitorsRep = require('./src/controllers/monitorsReport')
 const Update = require('./src/controllers/updates')
 const ChangeOfLocation = require('./src/controllers/changeLocation')
 
+const VLC = require('./src/controllers/vlc')
 
 
 
@@ -100,8 +101,7 @@ app.use('/api/v1/monitorsreports', MonitorsRep);
 app.use('/api/v1/performance', Performance);
 app.use('/api/v1/update', Update);
 app.use('/api/v1/changeoflocation', ChangeOfLocation);
-
-
+app.use('/api/v1/vlc', VLC);
 
 
 app.post('/api/v1/reportform', upload.single('image'), (req, res) => {
