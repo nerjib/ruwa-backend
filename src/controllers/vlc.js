@@ -67,8 +67,13 @@ const updateprojectfunc = async(e,pid)=>{
     }
   });  
 
+
   router.get('/followup', async (req, res) => {
-    const getAllQ = `SELECT * FROM followupreports left join projects on projects.id = followupreports.pid
+    const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.coordinate,followupreports.time,followupreports.gentime,
+    followupreports.sid, followupreports.id as fid,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id
+     FROM followupreports left join projects on projects.id = followupreports.pid
       order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
@@ -82,5 +87,42 @@ const updateprojectfunc = async(e,pid)=>{
     }
   });  
 
+  router.get('/followup/byprojects/:id', async (req, res) => {
+    const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.coordinate,followupreports.time,followupreports.gentime,
+    followupreports.sid, followupreports.id as fid,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id
+     FROM followupreports left join projects on projects.id = followupreports.pid where followupreports.pid=$1
+      order by followupreports.id desc`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,[req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  }); 
+
+  router.get('/followup/siglereport/:id', async (req, res) => {
+    const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.coordinate,followupreports.time,followupreports.gentime,
+    followupreports.sid, followupreports.id as fid,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id
+     FROM followupreports left join projects on projects.id = followupreports.pid where followupreports.id=$1
+      order by followupreports.id desc`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ,[req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  }); 
 
   module.exports = router;
