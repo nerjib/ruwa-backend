@@ -265,5 +265,62 @@ return res.status(400).send(error);
 });
 
 
+router.put('/updatebank/:id', async (req, res) => {
+  const createUser = `UPDATE users set first_name=$1, last_name=$2, other_name=$3, bank=$4, actno=$5
+    where id=$6 RETURNING *`;
+
+const values = [
+req.body.fname,
+req.body.lname,
+req.body.oname,
+req.body.bank,
+req.body.act,
+req.params.id];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+  data: {
+    message: 'User added successfully​',
+    Name: rows[0].first_name,
+    Email: rows[0].email,
+    phone: rows[0].phone,
+  },
+};
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
+
+router.put('/pushtoken/:id', async (req, res) => {
+  const createUser = `UPDATE users set pushtoken=$1  where id=$2 RETURNING *`;
+
+const values = [
+req.body.token,
+req.params.id];
+try {
+const { rows } = await db.query(createUser, values);
+// console.log(rows);
+const data = {
+  status: 'success',
+  data: {
+    message: 'User added successfully​',
+    Name: rows[0].first_name,
+    Email: rows[0].email,
+    phone: rows[0].phone,
+  },
+};
+return res.status(201).send(data);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
+
 module.exports = router;
 
