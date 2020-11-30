@@ -1,12 +1,42 @@
 const express = require('express');
 const moment = require ('moment')
+const request = require('request');
 const router = express.Router();
 const db = require('../dbs/index');
+
+
+
+const pushtoken = async(msg,type)=>{
+  
+  const getAllQ = 'SELECT * from users where type=$1 ';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,[type]);
+    await request({
+      uri: "https://exp.host/--/api/v2/push/send",
+      method: "POST",
+      json: {
+      //  "to": "ExponentPushToken[g4ESOZBNo1O65nhet3Bbu]",
+      "to": rows[0].pushtoken,
+        "sound": "default",
+        "title": 'Change',
+        "body": msg,
+      }
+    })
+    
+  //  return res.status(201).send(rows);
+  } catch (error) {
+  
+    return res.status(400).send(`${error} jsh`);
+  }
+}
+
 
 router.post('/', async (req, res) => {
     const createUser = `INSERT INTO
     changeoflocation(pid, sid, newcommunity, newward, reason,changestatus, gentime)
     VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING *`;
+
   //console.log(req.body)
   const values = [
   req.body.pid,
@@ -20,7 +50,8 @@ router.post('/', async (req, res) => {
   try {
   const { rows } = await db.query(createUser, values);
   // console.log(rows);
-  
+  await pushtoken(req.body.lga+' '+req.body.ward+' '+req.body.newcommunity, 'sanitation')
+
   return res.status(201).send(rows);
   } catch (error) {
   return res.status(400).send(error);
