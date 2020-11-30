@@ -31,6 +31,35 @@ const pushtoken = async(msg,type)=>{
   }
 }
 
+const checkPush = async()=>{
+  
+  const getAllQ = 'SELECT * from users where id=$1';
+  try {
+    // const { rows } = qr.query(getAllQ);
+    const { rows } = await db.query(getAllQ,[9]);
+    await request({
+      uri: "https://exp.host/--/api/v2/push/send",
+      method: "POST",
+      json: {
+      //  "to": "ExponentPushToken[g4ESOZBNo1O65nhet3Bbu]",
+      "to": rows[0].pushtoken,
+        "sound": "default",
+        "title": 'Change',
+        "body": test,
+      }
+    })
+    
+  //  return res.status(201).send(rows);
+  } catch (error) {
+  
+    return res.status(400).send(`${error} jsh`);
+  }
+}
+
+
+router.get('/ck', async (req, res) => {
+ await checkPush()
+});  
 
 router.post('/', async (req, res) => {
     const createUser = `INSERT INTO
