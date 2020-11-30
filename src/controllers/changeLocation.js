@@ -48,6 +48,7 @@ const checkPush = async()=>{
         "body": test,
       }
     })
+    return res.status(200).send('ok')
     
   //  return res.status(201).send(rows);
   } catch (error) {
