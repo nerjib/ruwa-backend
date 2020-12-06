@@ -297,11 +297,11 @@ return res.status(400).send(error);
   });
 
   //get projects by lga
-  router.get('/lgaprojects/:lga', async (req, res) => {
+  router.get('/lgaprojects/:lg', async (req, res) => {
     const getAllQ = 'SELECT  projects.functionality,projects.lastdate,projects.done,projects.started,projects.totalcov,users.actno,users.bank,projects.valuation,projects.phase,projects.gps,projects.local_id,projects.state_id,projects.community,projects.facility,projects.lot,projects.pstatus,projects.id,projects.title,projects.lga,projects.ward,projects.status,contractors.company,users.first_name,users.last_name,users.other_name,(select first_name as fn from users where users.id=projects.local_id),(select last_name as ln from users where users.id=projects.local_id),(select other_name as on from users where users.id=projects.local_id),(select actno as ac from users where users.id=projects.local_id),(select bank as bnk from users where users.id=projects.local_id) from Projects left join contractors on projects.contractor_id=contractors.id left join users on users.id=projects.state_id where lga=$1 order by projects.lot asc, projects.id desc';
     try {
       // const { rows } = qr.query(getAllQ);
-      const { rows } = await db.query(getAllQ,[req.params.lga]);
+      const { rows } = await db.query(getAllQ,[req.params.lg]);
       return res.status(201).send(rows);
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
