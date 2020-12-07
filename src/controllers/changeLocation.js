@@ -80,7 +80,7 @@ router.post('/', async (req, res) => {
   try {
   const { rows } = await db.query(createUser, values);
   // console.log(rows);
-  await pushtoken(req.body.lga+' '+req.body.ward+' '+req.body.newcommunity, 'sanitation')
+ // await pushtoken(req.body.lga+' '+req.body.ward+' '+req.body.newcommunity, 'sanitation')
 
   return res.status(201).send(rows);
   } catch (error) {
