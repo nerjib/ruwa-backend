@@ -201,4 +201,47 @@ router.post('/', async (req, res) => {
   
   });
 
+
+  router.post('/toshos', async (req, res) => {
+    const createUser = `INSERT INTO
+    site(pid, sid,gps,activity,info, imgurl, gentime, time)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+  //console.log(req.body)
+  const values = [
+  req.body.pid,
+  req.body.sid,
+  req.body.gps,
+  req.body.activity,
+  req.body.info,
+  req.body.imgurl,
+  req.body.gentime,
+  moment(new Date())
+  ];
+  try {
+  const { rows } = await db.query(createUser, values);
+  // console.log(rows);
+  
+  return res.status(201).send(rows);
+  } catch (error) {
+  return res.status(400).send(error);
+  }
+  });
+
+
+  router.get('/toshos/:id', async (req, res) => {
+    const getAllQ = 'SELECT * FROM siteover where pid=$1 order by id desc';
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ, [req.params.id]);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });  
+
+
+
 module.exports = router;

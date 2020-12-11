@@ -177,3 +177,18 @@ create table reportactivities(
         gentime timestamp
         
     )
+
+    create table siteover(
+        id serial,
+        pid integer,
+        sid integer,
+        gps text,
+        activity text,
+        info text,
+        imgurl text,
+        gentime timestamp,
+        time timestamp        
+    )
+
+
+    
