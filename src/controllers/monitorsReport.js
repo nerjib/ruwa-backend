@@ -204,13 +204,14 @@ router.post('/', async (req, res) => {
 
   router.post('/toshos', async (req, res) => {
     const createUser = `INSERT INTO
-    siteover(pid, sid,gps,activity,info, imgurl, gentime, time)
+    siteover(pid, sid,gps,existence,activity,info, imgurl, gentime, time)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
   //console.log(req.body)
   const values = [
   req.body.pid,
   req.body.sid,
   req.body.gps,
+  req.body.existence,
   req.body.activity,
   req.body.info,
   req.body.imgurl,
