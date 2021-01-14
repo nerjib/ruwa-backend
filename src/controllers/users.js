@@ -304,7 +304,7 @@ const data = {
     phone: rows[0].phone,
   },
 };
-return res.status(201).send(data);
+return res.status(201).send('can not be updated at the moment');
 } catch (error) {
 return res.status(400).send('can not be updated at the moment');
 }
