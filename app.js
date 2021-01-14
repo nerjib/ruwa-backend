@@ -23,6 +23,8 @@ const MonitorsRep = require('./src/controllers/monitorsReport')
 const Update = require('./src/controllers/updates')
 const ChangeOfLocation = require('./src/controllers/changeLocation')
 const Phases = require('./src/controllers/phases')
+const Training = require('./src/controllers/training')
+
 
 
 const VLC = require('./src/controllers/vlc')
@@ -105,6 +107,8 @@ app.use('/api/v1/update', Update);
 app.use('/api/v1/changeoflocation', ChangeOfLocation);
 app.use('/api/v1/vlc', VLC);
 app.use('/api/v1/phases', Phases);
+app.use('/api/v1/training', Training);
+
 
 
 
