@@ -280,8 +280,8 @@ return res.status(400).send(error);
 
 
 router.put('/updatebank/:id', async (req, res) => {
-  const createUser = `UPDATE users set first_name=$1, last_name=$2, other_name=$3, bank=$4, actno=$5
-    where id=$6 RETURNING *`;
+  const createUser = `UPDATE users set first_name=$1, last_name=$2, other_name=$3, bank=$4, actno=$5, edit=$6
+    where id=$7 RETURNING *`;
 
 const values = [
 req.body.fname,
@@ -289,6 +289,7 @@ req.body.lname,
 req.body.oname,
 req.body.bank,
 req.body.act,
+'1',
 req.params.id];
 try {
 const { rows } = await db.query(createUser, values);
