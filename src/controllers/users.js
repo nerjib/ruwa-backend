@@ -350,7 +350,7 @@ router.post('/authsign', async (req, res) => {
       return res.status(402).send({ message: 'user not found, check the email' });
     }
     // console.log(rows[0].pword);
-    if (rows[0].phone !== req.body.password) {
+    if (rows[0].phone !== req.body.pword) {
       return res.status(403).send({ message: 'The credentials you provided is incorrect' });
     }
     const response = {
