@@ -337,6 +337,42 @@ return res.status(400).send(error);
 
 });
 
+router.post('/authsign', async (req, res) => {
+  if (!req.body.email || !req.body.pword) {
+    return res.status(400).send({ message: 'Some values are missing' });
+  }
+ 
+  const text = 'SELECT * FROM admin WHERE email = $1';
+  try {
+    const { rows } = await db.query(text, [req.body.email]);
+    if (!rows[0]) {
+      // console.log('user not');
+      return res.status(402).send({ message: 'user not found, check the email' });
+    }
+    // console.log(rows[0].pword);
+    if (rows[0].phone !== req.body.password) {
+      return res.status(403).send({ message: 'The credentials you provided is incorrect' });
+    }
+    const response = {
+      status: 'success',
+      data: {
+        userId: rows[0].id,
+        email: rows[0].email,
+        type: rows[0].acttype
+      },
+    };
+
+   // res.cookie('token', token, { maxAge: 90000000, httpOnly: true }).status(200);
+    // res.set('token1', token);
+    // console.log(token);
+    // res.send({ message: 'token send' });
+
+    return res.status(200).send(response);
+  } catch (error) {
+    return res.status(405).send(error);
+  }
+});
+
 
 module.exports = router;
 
