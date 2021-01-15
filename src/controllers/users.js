@@ -143,7 +143,7 @@ router.get('/admin/:email', async (req, res) => {
 //insert users
 router.post('/', async (req, res) => {
   const createUser = `INSERT INTO
-  users (last_name,first_name,other_name,phone,email,role,lga,active,type)
+  users (last_namea,first_name,other_name,phone,email,role,lga,active,type)
   VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`;
 
 const values = [
