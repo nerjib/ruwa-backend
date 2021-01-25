@@ -112,7 +112,7 @@ const updateprojectfunc = async(e,pid)=>{
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
     followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
-    projects.lga,projects.ward,projects.community,projects.title,projects.id,projects.lot,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id,projects.lot,projects.phase,
     users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type, contractors.company
      FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
      left join contractors on projects.contractor_id=contractors.id    where followupreports.id=$1
