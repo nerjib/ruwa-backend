@@ -114,8 +114,9 @@ const updateprojectfunc = async(e,pid)=>{
     followupreports.sid, followupreports.id as fid,
     projects.lga,projects.ward,projects.community,projects.title,projects.id,projects.lot,
     users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type, contractors.company
-     FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id where followupreports.id=$1
-      left join contractors on projects.contractor_id=contractors.id order by followupreports.id desc`;
+     FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
+     left join contractors on projects.contractor_id=contractors.id    where followupreports.id=$1
+       order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ,[req.params.id]);
