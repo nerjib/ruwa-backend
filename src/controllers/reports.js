@@ -375,7 +375,7 @@ const updateprojectfunc = async(e,pid)=>{
 
 }
 
-router.put('/functionalitystatus', async (req, res) => {
+router.put('/functionalitystatus/tes', async (req, res) => {
 
   /*if(req.body.status=='accepted'){
    await updateprojectfunc(req.body.functionality,req.body.pid)
@@ -390,7 +390,6 @@ const values = [
 try {
 const { rows } = await db.query(updateReport, values);
 // console.log(rows);
-
 return res.status(201).send(rows);
 } catch (error) {
 return res.status(400).send(error);
