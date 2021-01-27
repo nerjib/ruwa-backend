@@ -375,7 +375,7 @@ const updateprojectfunc = async(e,pid)=>{
 
 }
 
-router.put('/functionalitystatus/tes', async (req, res) => {
+router.put('/functionalitystatus/update', async (req, res) => {
 
   /*if(req.body.status=='accepted'){
    await updateprojectfunc(req.body.functionality,req.body.pid)
@@ -384,8 +384,8 @@ router.put('/functionalitystatus/tes', async (req, res) => {
 const updateReport = `UPDATE followupreports SET status=$1 WHERE id=$2 RETURNING *`;
 console.log(req.body)
 const values = [
-'req.body.status',
-142
+req.body.status,
+req.body.id
 ];
 try {
 const { rows } = await db.query(updateReport, values);
