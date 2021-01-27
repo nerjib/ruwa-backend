@@ -376,10 +376,10 @@ const updateprojectfunc = async(e,pid)=>{
 }
 
 router.put('/functionalitystatus', async (req, res) => {
-  if(req.body.status=='accepted'){
+  /*if(req.body.status=='accepted'){
    await updateprojectfunc(req.body.functionality,req.body.pid)
 
-  }
+  }*/
  // console.log('kkkk')
 const updateReport = `UPDATE
 followupreports SET status=$1 WHERE id=$2
