@@ -111,7 +111,7 @@ const updateprojectfunc = async(e,pid)=>{
   router.get('/followup/getreport/:id', async (req, res) => {
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
     followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
-    followupreports.sid, followupreports.id as fid,
+    followupreports.sid, followupreports.id as fid, followreports.status,
     projects.lga,projects.ward,projects.community,projects.title,projects.id,projects.lot,projects.phase,
     users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type, contractors.company
      FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
