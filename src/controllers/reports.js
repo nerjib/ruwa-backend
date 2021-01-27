@@ -387,7 +387,7 @@ followupreports SET status=$1 WHERE id=$2
 console.log(req.body)
 const values = [
 req.body.status,
-req.body.id,
+req.body.id
 ];
 try {
 const { rows } = await db.query(updateReport, values);
