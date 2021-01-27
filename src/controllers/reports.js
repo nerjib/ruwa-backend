@@ -375,8 +375,34 @@ const updateprojectfunc = async(e,pid)=>{
 
 }
 
+router.put('/functionalitystatus', async (req, res) => {
+  if(req.body.status=='accepted'){
+   await updateprojectfunc(req.body.functionality,req.body.pid)
+
+  }
+ // console.log('kkkk')
+const updateReport = `UPDATE
+followupreports SET status=$1 WHERE id=$2
+ RETURNING *`;
+console.log(req.body)
+const values = [
+req.body.status,
+req.body.id,
+];
+try {
+const { rows } = await db.query(updateReport, values);
+// console.log(rows);
+
+return res.status(201).send(rows);
+} catch (error) {
+return res.status(400).send(error);
+}
+
+});
+
+
   router.post('/followupreports', async (req, res) => {
-    await updateprojectfunc(req.body.functionality,req.body.pid)
+   // await updateprojectfunc(req.body.functionality,req.body.pid)
 
     const createUser = `INSERT INTO
     followupreports(pid, sid, functionality,problem,problemduration,remark,cause,imgurl1,imgurl2,cordinate,gentime,time)
