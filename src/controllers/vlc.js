@@ -75,7 +75,7 @@ const updateprojectfunc = async(e,pid)=>{
     projects.lga,projects.ward,projects.community,projects.title,projects.id,
     users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
      FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
-      order by followupreports.id desc`;
+     Where followupreports.status='' order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
@@ -87,6 +87,69 @@ const updateprojectfunc = async(e,pid)=>{
       return res.status(400).send(`${error} jsh`);
     }
   });  
+
+
+  router.get('/followupstatus/accepted', async (req, res) => {
+    const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
+    followupreports.sid, followupreports.id as fid,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id,
+    users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
+     FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
+      Where followupreports.status='accepted'order by followupreports.id desc`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });  
+
+  router.get('/followupstatus/declined', async (req, res) => {
+    const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
+    followupreports.sid, followupreports.id as fid,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id,
+    users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
+     FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
+      Where followupreports.status='declined'order by followupreports.id desc`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+  router.get('/followupstatus/nonfunctional', async (req, res) => {
+    const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
+    followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
+    followupreports.sid, followupreports.id as fid,
+    projects.lga,projects.ward,projects.community,projects.title,projects.id,
+    users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
+     FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
+      Where followupreports.functionality='no' order by followupreports.id desc`;
+    try {
+      // const { rows } = qr.query(getAllQ);
+      const { rows } = await db.query(getAllQ);
+      return res.status(201).send(rows);
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(400).send({ message: 'User with that EMAIL already exist' });
+      }
+      return res.status(400).send(`${error} jsh`);
+    }
+  });
+
+
 
   router.get('/followup/byprojects/:id', async (req, res) => {
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
