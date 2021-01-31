@@ -75,7 +75,7 @@ const updateprojectfunc = async(e,pid)=>{
     projects.lga,projects.ward,projects.community,projects.title,projects.id,
     users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
      FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
-     order by followupreports.id desc`;
+     Where followupreports.status is null order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
