@@ -133,10 +133,10 @@ const updateprojectfunc = async(e,pid)=>{
     const getAllQ = `SELECT followupreports.functionality,followupreports.cause, followupreports.problem,followupreports.problemduration,
     followupreports.remark, followupreports.imgurl1,followupreports.imgurl2,followupreports.cordinate,followupreports.time,followupreports.gentime,
     followupreports.sid, followupreports.id as fid,
-    projects.lga,projects.ward,projects.community,projects.title,projects.id,
-    users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type
+    projects.lga,projects.ward,projects.community,projects.title,projects.id, projects.phase,
+    users.first_name,users.last_name, users.other_name, users.phone, users.email, users.type, contractors.company
      FROM followupreports left join projects on projects.id = followupreports.pid left join users on followupreports.sid=users.id
-      Where followupreports.functionality='no' order by followupreports.id desc`;
+      left join contractors on contractors.id=projects.contractors_id Where followupreports.functionality='no' order by followupreports.id desc`;
     try {
       // const { rows } = qr.query(getAllQ);
       const { rows } = await db.query(getAllQ);
