@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 
 const router = express.Router();
 const db = require('../dbs/index');
@@ -376,3 +376,4 @@ router.post('/authsign', async (req, res) => {
 
 module.exports = router;
 
+*/

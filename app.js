@@ -87,7 +87,7 @@ app.use((req, res, next) => {
     next();
   });
   
-app.get('/', function(req,res){
+app.get('/api/v1/tt', function(req,res){
 res.json({
     m:'k'
 })
