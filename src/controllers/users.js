@@ -1,7 +1,15 @@
-/*const express = require('express');
+const express = require('express');
 
 const router = express.Router();
 const db = require('../dbs/index');
+
+
+router.get('/tt', function(req,res){
+  res.json({
+      m:'k'
+  })
+  })
+  
 
 router.get('/', async (req, res) => {
   const getAllQ = 'SELECT * FROM users order by active asc, first_name asc, id desc';
@@ -17,6 +25,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+/*
 router.get('/usersbyphase/:phase', async (req, res) => {
   const getAllQ = 'SELECT users.last_name,users.actno,users.bank,users.first_name,users.other_name,projects.title,users.id FROM users left join projects on (users.id=projects.local_id or users.id=projects.state_id) where exists (SELECT title from projects where projects.phase=$1 and(projects.state_id=users.id or projects.local_id=users.id)) group by users.last_name,users.first_name,users.other_name,projects.title,users.id,users.actno,users.bank';
   try {
@@ -372,8 +381,7 @@ router.post('/authsign', async (req, res) => {
     return res.status(405).send(error);
   }
 });
-
+*/
 
 module.exports = router;
 
-*/
